@@ -9,6 +9,7 @@
     </head>
     <body>
     <h1>Eni-Sorti - Groupe 1 - Le meilleur</h1>
+    {% block nav %}
     <nav class="menu">
         <ul>
             <li><a href={{path('accueil')}}>Accueil</a></li>
@@ -16,7 +17,7 @@
             <li><a>Se déconnecter</a></li>
         </ul>
     </nav>
-
+    {% endblock %}
         {% block body %}
         {% endblock %}
     </body>
