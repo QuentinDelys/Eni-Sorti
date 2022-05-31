@@ -31,7 +31,6 @@ class AppFixtures extends Fixture
         $this->addCampus($manager);
         $this->addVille($manager);
         $this->addLieux($manager);
-        $this->addLieux($manager);
         $this->addParticipant($manager);
 
     }
@@ -83,7 +82,7 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 30; $i++) {
             $lieu = new Lieu();
             $lieu->setNom($this->generator->randomElement($lieux));
-            $lieu->setRue($this->generator->address);
+            $lieu->setRue($this->generator->streetName);
             $lieu->setville($this->generator->randomElement($villes));
             $lieu->setLatitude($this->generator->latitude);
             $lieu->setLongitude($this->generator->longitude);
