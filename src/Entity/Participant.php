@@ -32,14 +32,11 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private $prenom;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'integer', length: 10)]
     private $telephone;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $email;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $motPasse;
 
     #[ORM\Column(type: 'boolean')]
     private $actif;
@@ -187,18 +184,6 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    public function getMotPasse(): ?string
-    {
-        return $this->motPasse;
-    }
-
-    public function setMotPasse(string $motPasse): self
-    {
-        $this->motPasse = $motPasse;
 
         return $this;
     }
