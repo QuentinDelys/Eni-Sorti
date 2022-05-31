@@ -3,12 +3,20 @@
 namespace App\Form;
 
 use App\Entity\Participant;
-use Doctrine\DBAL\Types\TextType;
-use phpDocumentor\Reflection\Types\Integer;
+
+
+use Cassandra\Blob;
+use Doctrine\DBAL\Types\BlobType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Email;
+
 
 class ParticipantType extends AbstractType
 {
@@ -30,22 +38,35 @@ class ParticipantType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Nom....',]
             ])
-            ->add('telephone', Integer::class,[
+            ->add('telephone', TextType::class,[
                 'label' => "Téléphone :",
                 'attr' => [
                     'placeholder' => '0685649568',]
             ])
-            ->add('email', Email::class,[
+            ->add('email', EmailType::class,[
                 'label' => "Email : ",
+                'required' => false,
                 'attr' => [
                     'placeholder' => 'email@Eni.fr',]
             ])
-            ->add('password')
-            ->add('ConfPassword')
+            ->add('password', PasswordType::class,[
+                'label' => "Mot de passe :",
+                'required' => false,
+            ])
+            ->add('confPassword', PasswordType::class,[
+                'label' => "Confirmation :",
+                'mapped' => false,
+                'required' => false,
+            ])
             ->add('campus',EntityType::class,[
                 'label' => 'Campus :',
                 'choice_label' => "nom",
                 'class' => 'App\Entity\Campus'
+            ])
+            ->add('photo', FileType::class,[
+                'label' => "Ma photo :",
+                'mapped' => false,
+                'required' => false,
             ])
         ;
     }

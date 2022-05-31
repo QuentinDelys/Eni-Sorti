@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Modif profil{% endblock %}
+
+{% block body %}
+    <h1>Modif Profil</h1>
+
+    {{ form_start(participantForm) }}
+    {{ form_row(participantForm.username) }}
+    {{ form_row(participantForm.prenom) }}
+    {{ form_row(participantForm.nom) }}
+    {{ form_row(participantForm.telephone) }}
+    {{ form_row(participantForm.email) }}
+    {{ form_row(participantForm.password) }}
+    {{ form_row(participantForm.confPassword) }}
+    {{ form_row(participantForm.campus) }}
+    {{ form_row(participantForm.photo) }}
+
+    <a href="{{ path('participant_edit',{'id': participant.id}) }}"><button>Enregistrer</button></a>
+    <a href="{{ path('accueil')}}"><button>Annuler</button></a>
+
+    {{ form_end(participantForm) }}
+
+
+
+
+
+
+
+
+{% endblock %}
