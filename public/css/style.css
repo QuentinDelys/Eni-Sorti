@@ -1,0 +1,112 @@
+/***********************************************************
+* Styles Globals
+************************************************************/
+body{
+    margin:0;
+    /*background-color: #5eb5e0;*/
+    /*background: linear-gradient(#0025,#132135);*/
+    /*background-attachment:fixed ;*/
+    /*background-position: center center;*/
+    /*background-size: cover ;*/
+
+    font-family: 'Hachi Maru Pop', cursive;
+    text-align: center;
+}
+
+.container{
+    min-width: 360px;
+    max-width: 1000px;
+    margin: auto;
+    padding: 10px 20px;
+}
+
+a {
+    text-decoration: none;
+
+}
+
+a:hover{
+    text-decoration: underline;
+
+    cursor:pointer;
+}
+
+img{
+    max-width: 100%;
+}
+
+body > .container{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+/***********************************************************
+* Header
+************************************************************/
+.site-title{
+    display: flex;
+    text-align: center;
+    font-size: 48px ;
+}
+
+.site-title img{
+    height: 48px;
+    display: block;
+    margin-right: 5px;
+}
+
+nav ul{
+    margin: 5px 0;
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+nav a{
+    display: block;
+    padding: 5px 8px;
+    margin-right: 10px;
+}
+.
+
+/***********************************************************
+* Main
+************************************************************/
+main{
+    padding: 30px 0;
+    border-top: 1px solid #D3D3D3;
+    border-bottom: 1px solid #D3D3D3;
+    min-height: 700px;
+}
+
+h1{
+    margin:0;
+}
+
+/***********************************************************
+* Footer
+************************************************************/
+footer{
+    padding: 20px 0;
+    text-align: center;
+}
+footer a{
+    text-decoration: none;
+
+}
+a:hover {
+    text-decoration: underline;
+
+    cursor: pointer;
+}
+/***********************************************************
+* Form
+************************************************************/
+label{
+    display: block;
+}
+botton{
+    min-width: 10px;
+    max-width: 50px;
+
+}

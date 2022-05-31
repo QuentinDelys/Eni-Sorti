@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>{% block title %}Eni-sorti{% endblock %}</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">"
+        <link rel="stylesheet" href="{{asset('css/style.css')}}">
 
     </head>
     <body>
@@ -11,14 +12,21 @@
     {% block nav %}
     <nav class="menu">
         <ul>
-            <li><a href={{path('accueil')}}>Accueil</a></li>
-            <li><a>Mon profil</a></li>
+            <li><a href="{{path('accueil')}}">Accueil</a></li>
+            <li><a href="{{path('participant_detailProfil', { 'id': participant.id })}}">Mon profil</a></li>
             <li><a>Se déconnecter</a></li>
         </ul>
     </nav>
     {% endblock %}
-
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
         {% block body %}
         {% endblock %}
+
     </body>
 </html>
