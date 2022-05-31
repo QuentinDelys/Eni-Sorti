@@ -4,4 +4,18 @@
 
 {% block body %}
 
+    <div>
+        <p>Date du jour : {{ "now"|date("m/d/Y") }}</p><br>
+        <p>Participant : </p>
+    </div>
+
+    <h3>Filtrer les sorties</h3>
+    {{form_start(sortieForm)}}
+    {{form_row(sortieForm.campus)}}
+    {{form_row(sortieForm.nom)}}
+    {{form_row(sortieForm.dateHeureDebut)}}
+    {{form_row(sortieForm.dateLimiteInscription)}}
+    <button>Rechercher</button>
+
+
 {% endblock %}

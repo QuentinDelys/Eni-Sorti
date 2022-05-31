@@ -32,6 +32,7 @@ class AppFixtures extends Fixture
         $this->addVille($manager);
         $this->addLieux($manager);
         $this->addParticipant($manager);
+        $this->addEtat($manager);
 
     }
 
