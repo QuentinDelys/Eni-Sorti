@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\Campus;
+use App\Entity\Etat;
+use App\Entity\Lieu;
 use App\Entity\Participant;
 use App\Entity\Ville;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -26,39 +28,17 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        //Création d'un participant test
-        $participant = new Participant();
-        $participant->setNom("La pointe")->setPrenom("Boby")->setTelephone(0606060606)
-            ->setEmail("bobylapointe@test-eni.bzh")->setActif("true")
-            ->setUsername("bobytest")->setPassword("Test123!");
-        $manager->persist($participant);
+        $this->addCampus($manager);
+        $this->addVille($manager);
+        $this->addLieux($manager);
+        $this->addLieux($manager);
+        $this->addParticipant($manager);
 
-        //Création des participants (20)
-        /**
-         * @var Generator $faker
-         */
-        $faker = Faker\factory::create('fr_FR');
-        $participants = Array();
-        for ($i = 0; $i < 20; $i++) {
-            $participants[$i] = new Participant();
-            $participants[$i]->setNom($faker->lastName);
-            $participants[$i]->setPrenom($faker->firstName);
-            $participants[$i]->setTelephone($faker->phoneNumber);
-            $participants[$i]->setEmail($faker->email);
-            $participants[$i]->setActif($faker->boolean(100));
-            $participants[$i]->setUsername($faker->userName);
-            $participants[$i]->setPassword($faker->password());
+    }
 
 
-
-            $manager->persist($participants[$i]);
-        }
-
-        //création des lieux
-
-
-
-        //Création des villes
+    public function addVille(ObjectManager $manager): void
+    {
         $villeRennes = new Ville();
         $villeNiort = new Ville();
         $villeQuimper = new Ville();
@@ -67,12 +47,17 @@ class AppFixtures extends Fixture
         $villeNiort->setNom("Niort")->setCodePostal(79000);
         $villeQuimper->setNom("Quimper")->setCodePostal(29000);
         $villeNantes->setNom("Nantes")->setCodePostal(44000);
-        $manager-> persist($villeRennes);
-        $manager-> persist($villeNiort);
-        $manager-> persist($villeQuimper);
-        $manager-> persist($villeNantes);
+        $manager->persist($villeRennes);
+        $manager->persist($villeNiort);
+        $manager->persist($villeQuimper);
+        $manager->persist($villeNantes);
 
-        //Création des CAMPUS
+        $manager->flush();
+
+    }
+
+    public function addCampus(ObjectManager $manager): void
+    {
         $campusRennes = new Campus();
         $campusNantes = new Campus();
         $campusNiort = new Campus();
@@ -86,8 +71,93 @@ class AppFixtures extends Fixture
         $manager->persist($campusNiort);
         $manager->persist($campusQuimper);
 
+        $manager->flush();
 
+    }
+
+    public function addLieux(ObjectManager $manager): void
+    {
+        //création des lieux
+        $lieux = ['bar', 'taverne', 'piscine', 'patinoire', 'plage', 'bibliothèque', 'cinéma', 'strip club', 'club libertin'];
+        $villes = $manager->getRepository(Ville::class)->findAll();
+        for ($i = 0; $i < 30; $i++) {
+            $lieu = new Lieu();
+            $lieu->setNom($this->generator->randomElement($lieux));
+            $lieu->setRue($this->generator->address);
+            $lieu->setville($this->generator->randomElement($villes));
+            $lieu->setLatitude($this->generator->latitude);
+            $lieu->setLongitude($this->generator->longitude);
+
+            $manager->persist($lieu);
+        }
+        $manager->flush();
+    }
+
+    public function addParticipant(ObjectManager $manager): void
+    {
+        $campus = $manager->getRepository(Campus::class)->findAll();
+        //Création d'un participant test
+        $participant = new Participant();
+        $participant->setNom("La pointe")->setPrenom("Boby")->setTelephone(0606060606)
+            ->setEmail("bobylapointe@test-eni.bzh")->setActif("true")
+            ->setUsername("bobytest")->setPassword("Test123!");
+        $manager->persist($participant);
+
+        //Création des participants (20)
+
+
+        for ($i = 0; $i < 20; $i++) {
+            $participant = new Participant();
+            $participant->setNom($this->generator->lastName);
+            $participant->setPrenom($this->generator->firstName);
+            $participant->setTelephone($this->generator->phoneNumber);
+            $participant->setEmail($this->generator->email);
+            $participant->setActif($this->generator->boolean(100));
+            $participant->setCampus($this->generator->randomElement($campus));
+
+            $participant->setUsername($this->generator->userName);
+            $participant->setPassword($this->hasher->hashPassword($participant, "123"));
+
+            $manager->persist($participant);
+        }
 
         $manager->flush();
+    }
+
+    public function addEtat(ObjectManager $manager): void
+    {
+        //création des états
+        $etats = ['Créée', 'Ouverte', 'Clôturée', 'Activité en cours', 'passée', 'Annulée', 'Historisée'];
+        $etat1 = new Etat();
+        $etat2 = new Etat();
+        $etat3 = new Etat();
+        $etat4 = new Etat();
+        $etat5 = new Etat();
+        $etat6 = new Etat();
+        $etat7 = new Etat();
+        $etat1->setLibelle('Créée');
+        $etat2->setLibelle('Ouverte');
+        $etat3->setLibelle('Clôturée');
+        $etat4->setLibelle('Activité en cours');
+        $etat5->setLibelle('passée');
+        $etat6->setLibelle('Annulée');
+        $etat7->setLibelle('Historisée');
+        $manager->persist($etat1);
+        $manager->persist($etat2);
+        $manager->persist($etat3);
+        $manager->persist($etat4);
+        $manager->persist($etat5);
+        $manager->persist($etat6);
+        $manager->persist($etat7);
+
+        $manager->flush();
+
+    }
+
+    public function addSortie(ObjectManager $manager): void
+    {
+        //création des sorties
+
+
     }
 }
