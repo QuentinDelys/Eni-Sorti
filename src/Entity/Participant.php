@@ -125,7 +125,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Returning a salt is only needed, if you are not using a modern
-     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     * hashing algorithm (e.g. bcrypt or sodium) in your login.yaml.
      *
      * @see UserInterface
      */
