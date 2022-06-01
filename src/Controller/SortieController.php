@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\Sortie;
 use App\Form\SortieFormType;
 use App\Repository\SortieRepository;
-use ContainerCr6jLy4\getCampusRepositoryService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -27,11 +27,23 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/add', name: 'addSortie')]
-    public function add(): Response
+    #[Route('/creerSortie', name: 'creerSortie')]
+    public function add(SortieRepository $repo, Request $request): Response
     {
+        $sortie = new Sortie();
+
+
+        $sortieForm = $this->createForm(SortieFormType::class, $sortie);
+        $sortieForm->handleRequest($request);
+
+        if($sortieForm->isSubmitted() && $sortieForm->isValid()){
+            $repo->add($sortie, true);
+            $this->addFlash("success", "sortie ajoutée avec succès !");
+            return $this->redirectToRoute("sortie_accueil");
+        }
+
         return $this->render('sortie/creerSortie.html.twig', [
-            'controller_name' => 'SortieController',
+            'sortieForm' => $sortieForm->createView()
         ]);
     }
 

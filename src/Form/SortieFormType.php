@@ -3,8 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Sortie;
-use Doctrine\DBAL\Types\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,15 +20,11 @@ class SortieFormType extends AbstractType
                 'label' => 'Nom de la sortie',
                 'required' => true
             ])
-            ->add('dateHeureDebut', TextType::class,[
+            ->add('dateHeureDebut', DateTimeType::class,[
                 'label' => 'Date et heure de début',
                 'required' => true
             ])
-            ->add('duree', TextType::class,[
-                'label' => 'Durée de la sortie',
-                 'required' => true
-            ])
-            ->add('dateLimiteInscription', TextType::class,[
+            ->add('dateLimiteInscription', DateTimeType::class,[
                 'label'=> 'Date limite d\'inscription',
                 'required' => true
             ])
@@ -33,29 +32,47 @@ class SortieFormType extends AbstractType
                 'label' => 'Nombre max d\'inscrits',
                             'required' => true
             ])
-            ->add('infosSortie', TextType::class,[
-                'label' => 'Informations de la sortie',
-                'required' => true
+
+           ->add('infosSortie', TextareaType::class, [
+                'label' => "Informations de la sortie",
+                'attr' => [
+                    'class' => "descText"
+                ]
             ])
-            ->add('organisateur', TextType::class,[
-                'label' => 'Organisateur de la sortie',
-                'required' => true
-            ])
-            ->add('participants', TextType::class,[
-                'label' => 'Participants de la sortie',
-                'required' => true
-            ])
-            ->add('campus', TextType::class,[
+            ->add('Campus', EntityType::class,[
                 'label' => 'Campus de la sortie',
+                'choice_label' => "nom",
+                'class'=>'App\Entity\Campus',
                 'required' => true
             ])
-            ->add('lieu', TextType::class,[
-                'label' => 'Lieu de la sortie',
+            ->add('Lieu', EntityType::class,[
+                'label' => 'Campus de la sortie',
+                'choice_label' => "nom",
+                'class'=>'App\Entity\Lieu',
                 'required' => true
             ])
-            ->add('etat', TextType::class,[
-                'label' => 'Etat de la sortie',
+            ->add('Etat', EntityType::class,[
+                'label' => 'Campus de la sortie',
+                'choice_label' => "nom",
+                'class'=>'App\Entity\Etat',
                 'required' => true
+            ])
+            ->add('rue', TextType::class,[
+                'label' => 'rue',
+                'required' => true, 'mapped'=> false
+            ])
+            ->add('codePostal', TextType::class,[
+                'label' => 'codePostal',
+                'required' => true, 'mapped'=> false
+            ])
+            ->add('latitude', TextType::class,[
+                'label' => 'latitude',
+                'required' => true, 'mapped'=> false
+            ])
+            ->add('longitude', TextType::class,[
+                'label' => 'longitude',
+                'required' => true, 'mapped'=> false
+
             ])
         ;
     }
