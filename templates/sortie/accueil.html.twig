@@ -3,25 +3,37 @@
 {% block title %}Bonjour à toi Utilisateur de Sortie.com !{% endblock %}
 
 {% block body %}
-
     <div>
-        <p>Date du jour : {{ "now"|date("d/m/Y") }}</p><br>
-{#        <p>Participant : {{participant.username}}</p>#}
+        <p>Date du jour : {{ "now"|date("d/m/Y") }}</p>
+        {% if app.user%}
+            <p>Participant : {{app.user.userIdentifier}}</p>
+        {% endif %}
     </div>
 
-{#    <h3>Filtrer les sorties</h3>#}
-{#    {{form_start(sortieForm)}}#}
-{#    {{form_row(sortieForm.campus)}}#}
-{#    {{form_row(sortieForm.nom)}}#}
-{#    {{form_row(sortieForm.dateHeureDebut)}}#}
-{#    {{form_row(sortieForm.dateLimiteInscription)}}#}
-{#    <button>Rechercher</button>#}
+    <h3>Filtrer les sorties</h3>
+    {{form_start(sortieForm)}}
+    {{form_row(sortieForm.campus)}}
+    {{form_row(sortieForm.nom)}}
+    {{form_row(sortieForm.dateHeureDebut)}}
+    {{form_row(sortieForm.dateLimiteInscription)}}
+    <button>Rechercher</button>
+
+    <div>
+        <input type="checkbox" id="SortiesOrga" name="SortiesOrga">
+        <label for="SortiesOrga">Sorties dont je suis l'organisateur</label>
+        <input type="checkbox" id="SortiesInscri" name="SortiesInscri">
+        <label for="SortiesInscri">Sorties auxquelles je suis inscris</label>
+        <input type="checkbox" id="SortiesPasInscri" name="SortiesPasInscri">
+        <label for="SortiesPasInscri">Sorties auxquelles je ne suis pas inscris</label>
+        <input type="checkbox" id="SortiesPassées" name="SortiesPassées">
+        <label for="SortiesPassées">Sorties passées</label>
+    </div>
+
 
     <div>
         {# Tableau des sorties #}
     </div>
 
-    <form action="creerSortie.html.twig">Créer une sortie</form>
-
+    <button onclick="href='creerSortie.html.twig'">Créer une sortie</button>
 
 {% endblock %}
