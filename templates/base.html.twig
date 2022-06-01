@@ -9,6 +9,11 @@
     </head>
     <body>
         <header>
+            {% block logo %}
+                <a class="site-title" href="{{path('sortie_accueil')}}" title="Go Back Home">
+                    <img src="{{asset(('image/logoPioche.jpg'))}}" alt="Sortie-ENI">
+                </a>
+            {% endblock %}
             <h1>Eni-Sorti - Groupe 1 - Les Assoiffés</h1>
             {% block nav %}
                 <nav class="menu">
