@@ -5,8 +5,8 @@
 {% block body %}
 
     <div>
-        <p>Date du jour : {{ "now"|date("m/d/Y") }}</p><br>
-        <p>Participant : </p>
+        <p>Date du jour : {{ "now"|date("d/m/Y") }}</p><br>
+{#        <p>Participant : {{participant.username}}</p>#}
     </div>
 
 {#    <h3>Filtrer les sorties</h3>#}
@@ -16,6 +16,12 @@
 {#    {{form_row(sortieForm.dateHeureDebut)}}#}
 {#    {{form_row(sortieForm.dateLimiteInscription)}}#}
 {#    <button>Rechercher</button>#}
+
+    <div>
+        {# Tableau des sorties #}
+    </div>
+
+    <form action="creerSortie.html.twig">Créer une sortie</form>
 
 
 {% endblock %}

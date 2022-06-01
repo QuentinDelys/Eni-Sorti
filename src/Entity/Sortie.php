@@ -33,7 +33,6 @@ class Sortie
     #[ORM\Column(type: 'text')]
     private $infosSortie;
 
-
     #[ORM\ManyToOne(targetEntity: Participant::class, inversedBy: 'organisateur')]
     #[ORM\JoinColumn(nullable: false)]
     private $organisateur;
