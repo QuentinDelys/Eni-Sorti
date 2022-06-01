@@ -15,7 +15,7 @@ class ParticipantController extends AbstractController
 {
 
 
-    #[Route('/detail{id}', name: 'detail')]
+    #[Route('/detail/{id}', name: 'detail')]
     public function detailProfil($id,ParticipantRepository $participantRepository): Response
     {
         $participant = $participantRepository->find($id);
@@ -26,10 +26,10 @@ class ParticipantController extends AbstractController
         ]);
     }
 
-    #[Route('/edit{id}', name: 'edit')]
-    public function editProfil($id,ParticipantRepository $participantRepository, Request $request): Response
+    #[Route('/edit', name: 'edit')]
+    public function editProfil(ParticipantRepository $participantRepository, Request $request): Response
     {
-        $participant = $participantRepository->find($id);
+        $participant = $participantRepository->find($this->getUser());
         $participantForm = $this->createForm(ParticipantType::class, $participant);
 
         $participantForm -> handleRequest($request);

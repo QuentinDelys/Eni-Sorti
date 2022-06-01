@@ -8,25 +8,52 @@
 
     </head>
     <body>
-    <h1>Eni-Sorti - Groupe 1 - Le meilleur</h1>
-    {% block nav %}
-    <nav class="menu">
-        <ul>
-            <li><a href="{{path('accueil')}}">Accueil</a></li>
-{           <li><a href="{{path('participant_edit', { 'id': participant.id })}}">Mon profil</a></li>}
-            <li><a>Se déconnecter</a></li>
-        </ul>
-    </nav>
-    {% endblock %}
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash-{{ label }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-        {% block body %}
-        {% endblock %}
+        <header>
+            <h1>Eni-Sorti - Groupe 1 - Les Assoiffés</h1>
+            {% block nav %}
+                <nav class="menu">
+                    <ul>
+                        {% if app.user%}
+                            <li><a href="{{path('accueil')}}">Accueil</a></li>
+                            <li><a href="{{path('participant_edit')}}">Mon profil</a></li>
+                            <li><a href="{{path('app_logout')}}" title="Se déconnecter">Se déconnecter</a></li>
+                        {%else%}
+                            <li><a href="{{path('app_login')}}" title="Se connecter">Se connecter</a></li>
+                        {%endif%}
+                    </ul>
+                </nav>
+            {% endblock %}
+
+        </header>
+
+        <main>
+
+            {% if app.user%}
+                <hr>
+                <h2>Participant : {{app.user.userIdentifier}}</h2>
+                <hr>
+            {% endif %}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="flash-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+
+
+            {% block body %}
+
+            {% endblock %}
+        </main>
+        <footer>
+            {% block footer %}
+                <a href="{{path('mentionLegal')}}" title="Mentions Legal">Mentions légals</a>
+                &copy; {{"now"|date("Y") }} - Sorties by ENI-RD2WM012F-Groupe1 ;)
+            {% endblock %}
+
+        </footer>
 
     </body>
 </html>
