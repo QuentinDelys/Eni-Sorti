@@ -14,7 +14,7 @@
                 <nav class="menu">
                     <ul>
                         {% if app.user%}
-                            <li><a href="{{path('accueil')}}">Accueil</a></li>
+                            <li><a href="{{path('sortie_accueil')}}">Accueil</a></li>
                             <li><a href="{{path('participant_edit')}}">Mon profil</a></li>
                             <li><a href="{{path('app_logout')}}" title="Se déconnecter">Se déconnecter</a></li>
                         {%else%}

@@ -35,6 +35,7 @@ class ParticipantController extends AbstractController
         $participantForm -> handleRequest($request);
 
         if ($participantForm -> isSubmitted() && $participantForm-> isValid()) {
+            if ($participantForm->getp)
             $participantRepository->add($participant, true);
             $this->addFlash("success", "Votre profil a été mis à jour ");
             return $this->redirectToRoute("displaySortie",[
