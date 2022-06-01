@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\Sortie;
 use App\Form\SortieFormType;
 use App\Repository\SortieRepository;
-use ContainerCr6jLy4\getCampusRepositoryService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

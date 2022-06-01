@@ -27,12 +27,6 @@
         </header>
 
         <main>
-
-            {% if app.user%}
-                <hr>
-                <h2>Participant : {{app.user.userIdentifier}}</h2>
-                <hr>
-            {% endif %}
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
                     <div class="flash-{{ label }}">

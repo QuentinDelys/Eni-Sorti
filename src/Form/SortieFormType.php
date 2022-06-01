@@ -3,8 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Sortie;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,11 +14,11 @@ class SortieFormType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class,[
-                'label' => 'Nom de la sortie',
+                'label' => 'Le nom de la sortie contient :',
                 'required' => true
             ])
             ->add('dateHeureDebut', TextType::class,[
-                'label' => 'Date et heure de début',
+                'label' => 'Entre ',
                 'required' => true
             ])
             ->add('duree', TextType::class,[
@@ -43,7 +43,8 @@ class SortieFormType extends AbstractType
             ])
             ->add('participants', TextType::class,[
                 'label' => 'Participants de la sortie',
-                'required' => true
+                'required' => true,
+                'mapped' => false
             ])
             ->add('campus', TextType::class,[
                 'label' => 'Campus de la sortie',
@@ -57,13 +58,18 @@ class SortieFormType extends AbstractType
                 'label' => 'Etat de la sortie',
                 'required' => true
             ])
+            ->add('date', TextType::class,[
+                'label' => 'Etat de la sortie',
+                'required' => true
+            ])
+
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Sortie::class,
+            'data_class' => null,
         ]);
     }
 }
