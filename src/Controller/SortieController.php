@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SortieController extends AbstractController
 {
-    #[Route('/', name: 'accueil')]
+    #[Route('/accueil', name: 'accueil')]
     public function accueil(SortieRepository $sortieRepository): Response
     {
         $sortie = $sortieRepository->findAll();
