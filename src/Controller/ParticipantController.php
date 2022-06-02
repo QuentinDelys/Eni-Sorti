@@ -8,37 +8,50 @@ use App\Repository\ParticipantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/participant', name: 'participant_')]
 class ParticipantController extends AbstractController
 {
-
+    private UserPasswordHasherInterface $hasher;
 
     #[Route('/detail/{id}', name: 'detail')]
-    public function detailProfil($id,ParticipantRepository $participantRepository): Response
+    public function detailProfil($id, ParticipantRepository $participantRepository): Response
     {
         $participant = $participantRepository->find($id);
         return $this->render('participant/detail.html.twig', [
             'id' => $id,
-            'participant'=> $participant,
+            'participant' => $participant,
 
         ]);
     }
 
     #[Route('/edit', name: 'edit')]
-    public function editProfil(ParticipantRepository $participantRepository, Request $request): Response
+    public function editProfil(ParticipantRepository $participantRepository, Request $request,UserPasswordHasherInterface $hasher): Response
     {
         $participant = $participantRepository->find($this->getUser());
         $participantForm = $this->createForm(ParticipantType::class, $participant);
 
-        $participantForm -> handleRequest($request);
+        $participantForm->handleRequest($request);
+        $this->hasher = $hasher;
+        if ($participantForm->isSubmitted() && $participantForm->isValid()) {
+            if ($participant->getPassword() != $participantForm->get('password') &&
+                $participantForm->get('password') === $participantForm->get('confPassword')) {
 
-        if ($participantForm -> isSubmitted() && $participantForm-> isValid()) {
+                $participant->setPassword($this->$hasher->hashPassword($participant, $participantForm->get('password')));
 
+                $participantRepository->add($participant, true);
+                $this->addFlash("success", "Votre profil a été mis à jour ");
+                return $this->redirectToRoute("sortie_displaySortie", [
+                    'id' => $participant->getId(),
+                ]);
+            } else {
+                $this->addFlash("error", "Les mot de passe ne sont pas identiques ");
+            }
             $participantRepository->add($participant, true);
             $this->addFlash("success", "Votre profil a été mis à jour ");
-            return $this->redirectToRoute("sortie_accueil",[
+            return $this->redirectToRoute("sortie_displaySortie", [
                 'id' => $participant->getId(),
             ]);
         }

@@ -3,6 +3,9 @@
 {% block title %}{{ parent() }} - Modif profil{% endblock %}
 
 {% block body %}
+    <div>
+        <p>{{app.user.photo}}</p>
+    </div>
     <h1>Modif Profil</h1>
 
     {{ form_start(participantForm) }}
@@ -12,11 +15,11 @@
     {{ form_row(participantForm.telephone) }}
     {{ form_row(participantForm.email) }}
     {{ form_row(participantForm.password) }}
-    {{ form_row(participantForm.confPassword) }}
+
     {{ form_row(participantForm.campus) }}
     {{ form_row(participantForm.photo) }}
 
-   <button>Enregistrer</button></a>
+   <button>Enregistrer</button>
     <a href="{{ path('sortie_accueil')}}"><button>Annuler</button></a>
 
     {{ form_end(participantForm) }}

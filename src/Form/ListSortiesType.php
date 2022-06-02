@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Sortie;
+use app\Form\Model\Search;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,19 +18,35 @@ class ListSortiesType extends AbstractType
         $builder
             ->add('campus', ChoiceType::class,[
                 'label' => 'Campus de la sortie',
-                'required' => true
+                'required' => false
             ])
             ->add('nom', TextType::class,[
                 'label' => 'Le nom de la sortie contient :',
-                'required' => true
+                'required' => false
             ])
-            ->add('dateHeureDebut', TextType::class,[
+            ->add('dateHeureDebut', DateTimeType::class,[
                 'label' => 'Entre ',
-                'required' => true
+                'required' => false
             ])
-            ->add('dateHeureFin', TextType::class,[
+            ->add('dateHeureFin', DateTimeType::class,[
                 'label'=> 'Date limite d\'inscription',
-                'required' => true
+                'required' => false
+            ])
+            ->add('$sortiesOrga', DateTimeType::class,[
+                'label'=> 'Date limite d\'inscription',
+                'required' => false
+            ])
+            ->add('$sortiesInscris', DateTimeType::class,[
+                'label'=> 'Date limite d\'inscription',
+                'required' => false
+            ])
+            ->add('$sortiesPasInscris', DateTimeType::class,[
+                'label'=> 'Date limite d\'inscription',
+                'required' => false
+            ])
+            ->add('$sortiesPassees', DateTimeType::class,[
+                'label'=> 'Date limite d\'inscription',
+                'required' => false
             ])
         ;
     }
@@ -37,7 +54,7 @@ class ListSortiesType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => null,
+            'data_class' => Search::class,
         ]);
     }
 }

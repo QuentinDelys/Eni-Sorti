@@ -3,13 +3,20 @@
 {% block title %}{{ parent() }} - Affichage profil{% endblock %}
 
 {% block body %}
-    <h2>{{participant.username}}</h2>
+    <div>
+        <p>{{participant.photo}}</p>
+    </div>
+
+    <div>
+        <h2>{{participant.username}}</h2>
         <p>Prénom : {{participant.prenom}}</p>
         <p>Nom : {{participant.nom}}</p>
         <p>Téléphone : {{participant.telephone}}</p>
         <p>Email : {{participant.email}}</p>
         <p>Campus : {{participant.campus}}</p>
 
-    <a href="{{path('sortie_accueil')}}">Accueil></a>
+        <a href="{{path('sortie_accueil')}}">Accueil></a>
+    </div>
+
 
 {% endblock %}
