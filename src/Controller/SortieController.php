@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SortieFormType;
 use App\Repository\SortieRepository;
@@ -32,12 +33,17 @@ class SortieController extends AbstractController
     public function add(SortieRepository $repo, Request $request): Response
     {
         $sortie = new Sortie();
-
-
         $sortieForm = $this->createForm(SortieFormType::class, $sortie);
         $sortieForm->handleRequest($request);
 
         if($sortieForm->isSubmitted() && $sortieForm->isValid()){
+
+            /**
+             * @var Participant $user
+             */
+            $user = $this->getUser();
+
+            $sortie->setOrganisateur($user);
             $repo->add($sortie, true);
             $this->addFlash("success", "sortie ajoutée avec succès !");
             return $this->redirectToRoute("sortie_accueil");
