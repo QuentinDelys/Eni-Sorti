@@ -52,7 +52,7 @@ class SortieFormType extends AbstractType
             ])
             ->add('Etat', EntityType::class,[
                 'label' => 'Campus de la sortie',
-                'choice_label' => "nom",
+                'choice_label' => "libelle",
                 'class'=>'App\Entity\Etat',
                 'required' => true
             ])
@@ -78,7 +78,7 @@ class SortieFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Sortie::class,
+            'data_class' => null,
         ]);
     }
 }

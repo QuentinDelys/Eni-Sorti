@@ -17,7 +17,7 @@ class ListSortiesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('campus', ChoiceType::class,[
+            ->add('campus', EntityType::class,[
                 'label' => 'Campus de la sortie',
                 'required' => false
             ])
