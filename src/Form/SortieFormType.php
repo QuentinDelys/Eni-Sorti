@@ -19,7 +19,7 @@ class SortieFormType extends AbstractType
                 'label' => 'Le nom de la sortie contient :',
                 'required' => true
             ])
-            ->add('dateHeureDebut', DateTimeType::class,[
+            ->add('dateHeureDebut', DateTimeType::class, [
                 'label' => 'Date et heure de début',
                 'required' => true
             ])
@@ -27,8 +27,8 @@ class SortieFormType extends AbstractType
                 'label' => 'Durée de la sortie',
                 'required' => true
             ])
-            ->add('dateLimiteInscription', DateTimeType::class,[
-                'label'=> 'Date limite d\'inscription',
+            ->add('dateLimiteInscription', DateTimeType::class, [
+                'label' => 'Date limite d\'inscription',
                 'required' => true
             ])
             ->add('nbInscriptionMax', TextType::class, [
@@ -41,53 +41,52 @@ class SortieFormType extends AbstractType
                     'class' => "descText"
                 ]
             ])
-
             ->add('organisateur', TextType::class, [
-        'label' => 'Organisateur de la sortie',
-        'required' => true
-    ])
-        ->add('participants', TextType::class, [
-            'label' => 'Participants de la sortie',
-            'required' => true,
-            'mapped' => false
-        ])
-            ->add('Campus', EntityType::class,[
+                'label' => 'Organisateur de la sortie',
+                'required' => true
+            ])
+            ->add('participants', TextType::class, [
+                'label' => 'Participants de la sortie',
+                'required' => true,
+                'mapped' => false
+            ])
+            ->add('Campus', EntityType::class, [
                 'label' => 'Campus de la sortie',
                 'choice_label' => "nom",
-                'class'=>'App\Entity\Campus',
+                'class' => 'App\Entity\Campus',
                 'required' => true
-        ])
-            ->add('Lieu', EntityType::class,[
+            ])
+            ->add('Lieu', EntityType::class, [
                 'label' => 'Campus de la sortie',
                 'choice_label' => "nom",
-                'class'=>'App\Entity\Lieu',
+                'class' => 'App\Entity\Lieu',
                 'required' => true
-        ])
-            ->add('Etat', EntityType::class,[
+            ])
+            ->add('Etat', EntityType::class, [
                 'label' => 'Campus de la sortie',
                 'choice_label' => "nom",
-                'class'=>'App\Entity\Etat',
+                'class' => 'App\Entity\Etat',
                 'required' => true
-        ])
-        ->add('date', TextType::class, [
-            'label' => 'Etat de la sortie',
-            'required' => true
-        ])
-            ->add('rue', TextType::class,[
+            ])
+            ->add('date', TextType::class, [
+                'label' => 'Etat de la sortie',
+                'required' => true
+            ])
+            ->add('rue', TextType::class, [
                 'label' => 'rue',
-                'required' => true, 'mapped'=> false
+                'required' => true, 'mapped' => false
             ])
-            ->add('codePostal', TextType::class,[
+            ->add('codePostal', TextType::class, [
                 'label' => 'codePostal',
-                'required' => true, 'mapped'=> false
+                'required' => true, 'mapped' => false
             ])
-            ->add('latitude', TextType::class,[
+            ->add('latitude', TextType::class, [
                 'label' => 'latitude',
-                'required' => true, 'mapped'=> false
+                'required' => true, 'mapped' => false
             ])
-            ->add('longitude', TextType::class,[
+            ->add('longitude', TextType::class, [
                 'label' => 'longitude',
-                'required' => true, 'mapped'=> false
+                'required' => true, 'mapped' => false
             ]);
     }
 
