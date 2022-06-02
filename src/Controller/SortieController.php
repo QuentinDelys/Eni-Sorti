@@ -25,12 +25,12 @@ class SortieController extends AbstractController
         $search = new Search();
         $sortieList = $sortieRepository->findAll();
 
-        $sortieForm = $this->createForm(ListSortiesType::class, $search);
-        $sortieForm->handleRequest($request);
+//        $sortieForm = $this->createForm(ListSortiesType::class, $search);
+//        $sortieForm->handleRequest($request);
 
         return $this->render('sortie/accueil.html.twig', [
             'sortieList' => $sortieList,
-            'sortieForm' => $sortieForm->createView(),
+            //'sortieForm' => $sortieForm->createView(),
         ]);
     }
 
@@ -52,7 +52,7 @@ class SortieController extends AbstractController
 
             $sortie->setOrganisateur($user);
             $sortie->setEtat($etatRepo->findOneBy(array('libelle'=>'créée')));
-            $sortie->setCampus($campusRepo->findOneBy(array('nom'=>($user))));
+            $sortie->setCampus($user->getCampus());
 
             $repo->add($sortie, true);
             $this->addFlash("success", "sortie ajoutée avec succès !");
