@@ -4,16 +4,27 @@
 {% endblock %}
 
 {% block add %}
-    <h2>Créer une sortie</h2>
+<h2>Créer une sortie</h2>
 
-    {{form_start(sortieForm)}}
-    {{form_widget(sortieForm)}}
-    <button>Enregistrer</button>
-    {{form_end(sortieForm)}}
-    </a>
-    <a href="{{ path('sortie_accueil')}}"><button>Annuler</button></a>
+{{ form_start(sortieForm) }}
+    {{ form_row(sortieForm.nom) }}
+    {{ form_row(sortieForm.dateHeureDebut) }}
+    {{ form_row(sortieForm.dateLimiteInscription) }}
+    {{ form_row(sortieForm.nbInscriptionMax) }}
+    {{ form_row(sortieForm.duree) }}
+    {{ form_row(sortieForm.infosSortie) }}
+    {{ form_row(sortieForm.Campus) }}
+    {{ form_row(sortieForm.ville) }}
+    {{ form_row(sortieForm.Lieu) }}
+{#    {{form_row(sortieForm.codePostal)}} #}
+{#    {{form_row(sortieForm.latitude)}} #}
+{#    {{form_row(sortieForm.longitude)}} #}
 
-{% endblock %}
+<button>Enregistrer</button><a href="{{ path('sortie_accueil') }}">
+    <button>publier</button>
+    <a href="{{ path('sortie_accueil') }}">
+        <button>Annuler</button>
+        <a href="{{ path('sortie_accueil') }}">
 
-
-
+            {{ form_end(sortieForm) }}
+            {% endblock %}
