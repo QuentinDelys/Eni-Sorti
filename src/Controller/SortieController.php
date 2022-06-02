@@ -21,17 +21,30 @@ class SortieController extends AbstractController
         $sortieForm = $this->createForm(SortieFormType::class, $sortieList);
         $sortieForm->handleRequest($request);
 
+
         return $this->render('sortie/accueil.html.twig', [
             'sortieList' => $sortieList,
             'sortieForm' => $sortieForm->createView(),
         ]);
     }
 
-    #[Route('/add', name: 'addSortie')]
-    public function add(): Response
+    #[Route('/creerSortie', name: 'creerSortie')]
+    public function add(SortieRepository $repo, Request $request): Response
     {
+        $sortie = new Sortie();
+
+
+        $sortieForm = $this->createForm(SortieFormType::class, $sortie);
+        $sortieForm->handleRequest($request);
+
+        if($sortieForm->isSubmitted() && $sortieForm->isValid()){
+            $repo->add($sortie, true);
+            $this->addFlash("success", "sortie ajoutée avec succès !");
+            return $this->redirectToRoute("sortie_accueil");
+        }
+
         return $this->render('sortie/creerSortie.html.twig', [
-            'controller_name' => 'SortieController',
+            'sortieForm' => $sortieForm->createView()
         ]);
     }
 

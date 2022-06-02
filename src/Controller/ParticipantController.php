@@ -28,7 +28,7 @@ class ParticipantController extends AbstractController
     }
 
     #[Route('/edit', name: 'edit')]
-    public function editProfil(ParticipantRepository $participantRepository, Request $request,UserPasswordHasherInterface $hasher): Response
+    public function editProfil(ParticipantRepository $participantRepository, Request $request, UserPasswordHasherInterface $hasher): Response
     {
         $participant = $participantRepository->find($this->getUser());
         $participantForm = $this->createForm(ParticipantType::class, $participant);
@@ -36,19 +36,8 @@ class ParticipantController extends AbstractController
         $participantForm->handleRequest($request);
         $this->hasher = $hasher;
         if ($participantForm->isSubmitted() && $participantForm->isValid()) {
-            if ($participant->getPassword() != $participantForm->get('password') &&
-                $participantForm->get('password') === $participantForm->get('confPassword')) {
+            $participant->setPassword($this->$hasher->hashPassword($participant, $participantForm->get('password')));
 
-                $participant->setPassword($this->$hasher->hashPassword($participant, $participantForm->get('password')));
-
-                $participantRepository->add($participant, true);
-                $this->addFlash("success", "Votre profil a été mis à jour ");
-                return $this->redirectToRoute("sortie_displaySortie", [
-                    'id' => $participant->getId(),
-                ]);
-            } else {
-                $this->addFlash("error", "Les mot de passe ne sont pas identiques ");
-            }
             $participantRepository->add($participant, true);
             $this->addFlash("success", "Votre profil a été mis à jour ");
             return $this->redirectToRoute("sortie_displaySortie", [
