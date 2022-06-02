@@ -26,7 +26,7 @@ class SortieFormType extends AbstractType
                 'label' => 'Date et heure de début',
                 'required' => true
             ])
-            ->add('dateLimiteInscription', DateTimeType::class, [
+            ->add('dateLimiteInscription', DateTimeType::class,  [
                 'label' => 'Date limite d\'inscription',
                 'required' => true
             ])
