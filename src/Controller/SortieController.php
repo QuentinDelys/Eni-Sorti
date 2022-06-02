@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Campus;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SortieFormType;
+use App\Repository\CampusRepository;
+use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,18 +22,18 @@ class SortieController extends AbstractController
     {
         $sortieList = $sortieRepository->findAll();
 
-        $sortieForm = $this->createForm(SortieFormType::class, $sortieList);
-        $sortieForm->handleRequest($request);
+//        $sortieForm = $this->createForm(SortieFormType::class, $sortieList);  Pas correct  formulaire d ecreation de sortie
+//        $sortieForm->handleRequest($request);
 
 
         return $this->render('sortie/accueil.html.twig', [
             'sortieList' => $sortieList,
-            'sortieForm' => $sortieForm->createView(),
+//            'sortieForm' => $sortieForm->createView(),
         ]);
     }
 
     #[Route('/creerSortie', name: 'creerSortie')]
-    public function add(SortieRepository $repo, Request $request): Response
+    public function add(SortieRepository $repo, Request $request, EtatRepository $etatRepo, CampusRepository $campusRepo): Response
     {
         $sortie = new Sortie();
         $sortieForm = $this->createForm(SortieFormType::class, $sortie);
@@ -42,8 +45,12 @@ class SortieController extends AbstractController
              * @var Participant $user
              */
             $user = $this->getUser();
+            ;
 
             $sortie->setOrganisateur($user);
+            $sortie->setEtat($etatRepo->findOneBy(array('libelle'=>'créée')));
+            $sortie->setCampus($campusRepo->findOneBy(array('nom'=>($user))));
+
             $repo->add($sortie, true);
             $this->addFlash("success", "sortie ajoutée avec succès !");
             return $this->redirectToRoute("sortie_accueil");
@@ -80,5 +87,6 @@ class SortieController extends AbstractController
 //            'controller_name' => 'SortieController',
 //        ]);
 //    }
+
 
 }
