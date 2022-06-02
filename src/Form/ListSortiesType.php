@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Sortie;
 use app\Form\Model\Search;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,19 +33,19 @@ class ListSortiesType extends AbstractType
                 'label'=> 'Date limite d\'inscription',
                 'required' => false
             ])
-            ->add('$sortiesOrga', DateTimeType::class,[
+            ->add('$sortiesOrga', Boolean::class,[
                 'label'=> 'Date limite d\'inscription',
                 'required' => false
             ])
-            ->add('$sortiesInscris', DateTimeType::class,[
+            ->add('$sortiesInscris', Boolean::class,[
                 'label'=> 'Date limite d\'inscription',
                 'required' => false
             ])
-            ->add('$sortiesPasInscris', DateTimeType::class,[
+            ->add('$sortiesPasInscris', Boolean::class,[
                 'label'=> 'Date limite d\'inscription',
                 'required' => false
             ])
-            ->add('$sortiesPassees', DateTimeType::class,[
+            ->add('$sortiesPassees', Boolean::class,[
                 'label'=> 'Date limite d\'inscription',
                 'required' => false
             ])
@@ -54,7 +55,8 @@ class ListSortiesType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Search::class,
+//            'data_class' => Search::class,
+            'data_class' => null,
         ]);
     }
 }
