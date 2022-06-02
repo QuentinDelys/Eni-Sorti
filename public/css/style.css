@@ -45,7 +45,7 @@ body > .container{
 ************************************************************/
 header
 {
-    background-color: chartreuse;
+    background-color: tomato;
 }
 .site-title{
     display: flex;
@@ -109,7 +109,7 @@ a:hover {
 label{
     display: block;
 }
-botton{
+.botton{
     min-width: 10px;
     max-width: 50px;
 

@@ -15,7 +15,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 
 class ParticipantType extends AbstractType
@@ -53,14 +52,10 @@ class ParticipantType extends AbstractType
                 'type' => PasswordType::class,
                 'mapped' => false,
                 'required' => false,
-                'invalid_message' => false,
-
+                'invalid_message' =>'Les mots de passe ne corresponde pas',
                 'first_options'  => ['label' => 'Mot de passe :'],
                 'second_options' => ['label' => 'Confirmation :'],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Votre mot de passe ne respect pas le minimum de caractères (6)',
