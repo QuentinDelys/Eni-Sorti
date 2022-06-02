@@ -6,6 +6,7 @@ use App\Entity\Campus;
 use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Participant;
+use App\Entity\Sortie;
 use App\Entity\Ville;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -28,12 +29,12 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $this->addCampus($manager);
         $this->addVille($manager);
+        $this->addCampus($manager);
         $this->addLieux($manager);
-        $this->addEtat($manager);
         $this->addParticipant($manager);
         $this->addEtat($manager);
+        $this->addSortie($manager);
 
     }
 
@@ -106,7 +107,6 @@ class AppFixtures extends Fixture
 
         //Création des participants (20)
 
-
         for ($i = 0; $i < 20; $i++) {
             $participant = new Participant();
             $participant->setNom($this->generator->lastName);
@@ -155,10 +155,17 @@ class AppFixtures extends Fixture
 
     }
 
-    public function addSortie(ObjectManager $manager): void
-    {
-        //création des sorties
-
-
-    }
+//    public function addSortie(ObjectManager $manager): void
+//    {
+//        $participant = $manager->getRepository(Participant::class)->findAll();
+//        $campus = $manager->getRepository(Campus::class)->findAll();
+//        $lieu = $manager->getRepository(Lieu::class)->findAll();
+//        $etat = $manager->getRepository(Etat::class)->findAll();
+//
+//        //création des sorties
+//        $sortie = new Sortie();
+//        $sortie->setOrganisateur()
+//
+//
+//    }
 }

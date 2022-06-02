@@ -7,6 +7,7 @@ namespace App\Form;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,30 +27,33 @@ class ListSortiesType extends AbstractType
             ])
             ->add('nom', TextType::class,[
                 'label' => 'Le nom de la sortie contient :',
-                'required' => false
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'search'
+                ]
             ])
             ->add('dateHeureDebut', DateTimeType::class,[
                 'label' => 'Entre ',
                 'required' => false
             ])
             ->add('dateHeureFin', DateTimeType::class,[
-                'label'=> 'Date limite d\'inscription',
+                'label'=> 'et',
                 'required' => false
             ])
-            ->add('$sortiesOrga', DateTimeType::class,[
-                'label'=> 'Date limite d\'inscription',
+            ->add('sortiesOrga', CheckboxType::class,[
+                'label'=> 'Sorties dont je suis l\'organisateur/trice',
                 'required' => false
             ])
-            ->add('$sortiesInscris', DateTimeType::class,[
-                'label'=> 'Date limite d\'inscription',
+            ->add('sortiesInscris', CheckboxType::class,[
+                'label'=> 'Sorties auxquelles je suis inscris',
                 'required' => false
             ])
-            ->add('$sortiesPasInscris', DateTimeType::class,[
-                'label'=> 'Date limite d\'inscription',
+            ->add('sortiesPasInscris', CheckboxType::class,[
+                'label'=> 'Sorties auxquelles je ne suis pas inscris',
                 'required' => false
             ])
-            ->add('$sortiesPassees', DateTimeType::class,[
-                'label'=> 'Date limite d\'inscription',
+            ->add('sortiesPassees', CheckboxType::class,[
+                'label'=> 'Sorties passées',
                 'required' => false
             ])
         ;

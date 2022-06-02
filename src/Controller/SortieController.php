@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Sortie;
+use App\Form\ListSortiesType;
+use App\Form\Model\Search;
 use App\Form\SortieFormType;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,11 +18,11 @@ class SortieController extends AbstractController
     #[Route('/accueil', name: 'accueil')]
     public function accueil(SortieRepository $sortieRepository, Request $request): Response
     {
+        $search = new Search();
         $sortieList = $sortieRepository->findAll();
 
-        $sortieForm = $this->createForm(SortieFormType::class, $sortieList);
+        $sortieForm = $this->createForm(ListSortiesType::class, $search);
         $sortieForm->handleRequest($request);
-
 
         return $this->render('sortie/accueil.html.twig', [
             'sortieList' => $sortieList,
@@ -32,7 +34,6 @@ class SortieController extends AbstractController
     public function add(SortieRepository $repo, Request $request): Response
     {
         $sortie = new Sortie();
-
 
         $sortieForm = $this->createForm(SortieFormType::class, $sortie);
         $sortieForm->handleRequest($request);
