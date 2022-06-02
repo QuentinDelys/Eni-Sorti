@@ -24,7 +24,7 @@ security:
                 # target: app_any_route
             remember_me:
                 secret: '%kernel.secret%'
-                lifetime: 5
+                lifetime: 15
                 path: /
 #                secure: true
 #                remember_me_parameter: _remember_me

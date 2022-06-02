@@ -14,6 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/participant', name: 'participant_')]
 class ParticipantController extends AbstractController
 {
+
+
     private UserPasswordHasherInterface $hasher;
 
     #[Route('/detail/{id}', name: 'detail')]
@@ -36,13 +38,23 @@ class ParticipantController extends AbstractController
         $participantForm->handleRequest($request);
         $this->hasher = $hasher;
         if ($participantForm->isSubmitted() && $participantForm->isValid()) {
-            $participant->setPassword($this->$hasher->hashPassword($participant, $participantForm->get('password')));
+            if ($participantForm->get('password')->getData() ===  null){
+                $participantRepository->add($participant, true);
+                $this->addFlash("success", "Votre profil a été mis à jour ");
+                return $this->redirectToRoute("sortie_displaySortie", [
+                    'id' => $participant->getId(),
+                ]);
+            }else{
+                $newPassword = $participantForm->get('password')->getData();
+                $participant->setPassword($this->hasher->hashPassword($participant,$newPassword));
+                $participantRepository->add($participant, true);
+                $this->addFlash("success", "Votre profil a été mis à jour ");
+                return $this->redirectToRoute("sortie_accueil", [
+                    'id' => $participant->getId(),
+                ]);
+            }
 
-            $participantRepository->add($participant, true);
-            $this->addFlash("success", "Votre profil a été mis à jour ");
-            return $this->redirectToRoute("sortie_displaySortie", [
-                'id' => $participant->getId(),
-            ]);
+
         }
 
         return $this->render('participant/modif.html.twig', [
