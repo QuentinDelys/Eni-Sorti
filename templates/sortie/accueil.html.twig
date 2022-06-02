@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block link %}
+<link rel="stylesheet" href="{{asset('css/pageAccueil.css')}}">
+{% endblock %}
+
 {% block title %}Bonjour à toi Utilisateur de Sortie.com !{% endblock %}
 
 {% block body %}
@@ -12,30 +16,35 @@
 
     <h3>Filtrer les sorties</h3>
     {{form_start(sortieForm)}}
-
+    {{form_row(sortieForm.campus)}}
     {{form_row(sortieForm.nom)}}
     {{form_row(sortieForm.dateHeureDebut)}}
-    {{form_row(sortieForm.dateLimiteInscription)}}
-{#    {{form_row(sortieForm.sortiesOrga)}}#}
-{#    {{form_row(sortieForm.sortiesInscris)}}#}
-{#    {{form_row(sortieForm.sortiesPasInscris)}}#}
-{#    {{form_row(sortieForm.sortiesPassees)}}#}
+    {{form_row(sortieForm.dateHeureFin)}}
+    {{form_row(sortieForm.sortiesOrga)}}
+    {{form_row(sortieForm.sortiesInscris)}}
+    {{form_row(sortieForm.sortiesPasInscris)}}
+    {{form_row(sortieForm.sortiesPassees)}}
     <button>Rechercher</button>
-
-{#    <div>#}
-{#        <input type="checkbox" id="SortiesOrga" name="SortiesOrga">#}
-{#        <label for="SortiesOrga">Sorties dont je suis l'organisateur</label>#}
-{#        <input type="checkbox" id="SortiesInscri" name="SortiesInscri">#}
-{#        <label for="SortiesInscri">Sorties auxquelles je suis inscris</label>#}
-{#        <input type="checkbox" id="SortiesPasInscri" name="SortiesPasInscri">#}
-{#        <label for="SortiesPasInscri">Sorties auxquelles je ne suis pas inscris</label>#}
-{#        <input type="checkbox" id="SortiesPassées" name="SortiesPassées">#}
-{#        <label for="SortiesPassées">Sorties passées</label>#}
-{#    </div>#}
-
+    {{ form_end(sortieForm) }}
 
     <div>
-        {# Tableau des sorties #}
+        <table>
+            <thead>
+            <tr>
+                <td>Nom de la sortie</td>
+                <td>Date de la sortie</td>
+                <td>Clôture</td>
+                <td>inscrits/places</td>
+                <td>Etat</td>
+                <td>Inscrits</td>
+                <td>Organisateurs</td>
+                <td>Actions</td>
+            </tr>
+            </thead>
+            <tbody>
+{#                {%for key, value in %}#}
+            </tbody>
+        </table>
     </div>
 
     <button onclick="href='creerSortie.html.twig'">Créer une sortie</button>

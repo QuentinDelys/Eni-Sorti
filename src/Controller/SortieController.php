@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Campus;
 use App\Entity\Participant;
 use App\Entity\Sortie;
+use App\Form\ListSortiesType;
+use App\Form\Model\Search;
 use App\Form\SortieFormType;
 use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
@@ -20,15 +22,15 @@ class SortieController extends AbstractController
     #[Route('/accueil', name: 'accueil')]
     public function accueil(SortieRepository $sortieRepository, Request $request): Response
     {
+        $search = new Search();
         $sortieList = $sortieRepository->findAll();
 
-//        $sortieForm = $this->createForm(SortieFormType::class, $sortieList);  Pas correct  formulaire d ecreation de sortie
-//        $sortieForm->handleRequest($request);
-
+        $sortieForm = $this->createForm(ListSortiesType::class, $search);
+        $sortieForm->handleRequest($request);
 
         return $this->render('sortie/accueil.html.twig', [
             'sortieList' => $sortieList,
-//            'sortieForm' => $sortieForm->createView(),
+            'sortieForm' => $sortieForm->createView(),
         ]);
     }
 
@@ -36,6 +38,7 @@ class SortieController extends AbstractController
     public function add(SortieRepository $repo, Request $request, EtatRepository $etatRepo, CampusRepository $campusRepo): Response
     {
         $sortie = new Sortie();
+
         $sortieForm = $this->createForm(SortieFormType::class, $sortie);
         $sortieForm->handleRequest($request);
 
