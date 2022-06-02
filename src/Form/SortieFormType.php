@@ -45,40 +45,40 @@ class SortieFormType extends AbstractType
                 'required' => true
             ])
             ->add('Lieu', EntityType::class,[
-                'label' => 'Campus de la sortie',
+                'label' => 'Lieu de la sortie',
                 'choice_label' => "nom",
                 'class'=>'App\Entity\Lieu',
                 'required' => true
             ])
             ->add('Etat', EntityType::class,[
-                'label' => 'Campus de la sortie',
-                'choice_label' => "nom",
+                'label' => 'Etat de la sortie',
+                'choice_label' => "libelle",
                 'class'=>'App\Entity\Etat',
                 'required' => true
             ])
-            ->add('rue', TextType::class,[
-                'label' => 'rue',
-                'required' => true, 'mapped'=> false
-            ])
-            ->add('codePostal', TextType::class,[
-                'label' => 'codePostal',
-                'required' => true, 'mapped'=> false
-            ])
-            ->add('latitude', TextType::class,[
-                'label' => 'latitude',
-                'required' => true, 'mapped'=> false
-            ])
-            ->add('longitude', TextType::class,[
-                'label' => 'longitude',
-                'required' => true, 'mapped'=> false
-            ])
+//            ->add('rue', TextType::class,[
+//                'label' => 'rue',
+//                'required' => true, 'mapped'=> false
+//            ])
+//            ->add('codePostal', TextType::class,[
+//                'label' => 'codePostal',
+//                'required' => true, 'mapped'=> false
+//            ])
+//            ->add('latitude', TextType::class,[
+//                'label' => 'latitude',
+//                'required' => true, 'mapped'=> false
+//            ])
+//            ->add('longitude', TextType::class,[
+//                'label' => 'longitude',
+//                'required' => true, 'mapped'=> false
+//            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Sortie::class,
+            'data_class' => null,
         ]);
     }
 }

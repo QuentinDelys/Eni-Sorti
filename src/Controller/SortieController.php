@@ -21,6 +21,7 @@ class SortieController extends AbstractController
         $sortieForm = $this->createForm(SortieFormType::class, $sortieList);
         $sortieForm->handleRequest($request);
 
+
         return $this->render('sortie/accueil.html.twig', [
             'sortieList' => $sortieList,
             'sortieForm' => $sortieForm->createView(),
