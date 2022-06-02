@@ -80,7 +80,7 @@ class AppFixtures extends Fixture
     public function addLieux(ObjectManager $manager): void
     {
         //création des lieux
-        $lieux = ['bar', 'taverne', 'piscine', 'patinoire', 'plage', 'bibliothèque', 'cinéma', 'strip club', 'club libertin'];
+        $lieux = ['bar', 'taverne', 'piscine', 'patinoire', 'plage', 'bibliothèque', 'cinéma', 'piscine'];
         $villes = $manager->getRepository(Ville::class)->findAll();
         for ($i = 0; $i < 30; $i++) {
             $lieu = new Lieu();
@@ -121,7 +121,6 @@ class AppFixtures extends Fixture
 
             $manager->persist($participant);
         }
-
         $manager->flush();
     }
 
@@ -155,17 +154,32 @@ class AppFixtures extends Fixture
 
     }
 
-//    public function addSortie(ObjectManager $manager): void
-//    {
-//        $participant = $manager->getRepository(Participant::class)->findAll();
-//        $campus = $manager->getRepository(Campus::class)->findAll();
-//        $lieu = $manager->getRepository(Lieu::class)->findAll();
-//        $etat = $manager->getRepository(Etat::class)->findAll();
-//
-//        //création des sorties
-//        $sortie = new Sortie();
-//        $sortie->setOrganisateur()
-//
-//
-//    }
+    public function addSortie(ObjectManager $manager): void
+    {
+        $participant = $manager->getRepository(Participant::class)->findAll();
+        $campus = $manager->getRepository(Campus::class)->findAll();
+        $lieu = $manager->getRepository(Lieu::class)->findAll();
+        $etat = $manager->getRepository(Etat::class)->findAll();
+
+        //création des sorties
+
+        for ($i = 0; $i < 10; $i++){
+            $sortie = new Sortie();
+            $sortie->setOrganisateur($this->generator->randomElement($participant));
+            $sortie->setCampus($this->generator->randomElement($campus));
+            $sortie->setLieu($this->generator->randomElement($lieu));
+            $sortie->setEtat($this->generator->randomElement($etat));
+            $sortie->setNom($this->generator->name);
+            $sortie->setDateHeureDebut($this->generator->dateTimeBetween('now', '1 month'));
+            $sortie->setDateLimiteInscription($this->generator->dateTimeBetween('-1 month', 'now'));
+            $sortie->setNbInscriptionMax(($this->generator->randomNumber([5], [20])));
+            $sortie->setInfosSortie($this->generator->paragraph);
+
+            $manager->persist();
+
+        }
+
+        $manager->flush();
+
+    }
 }
