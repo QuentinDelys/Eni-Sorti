@@ -171,11 +171,12 @@ class AppFixtures extends Fixture
             $sortie->setEtat($this->generator->randomElement($etat));
             $sortie->setNom($this->generator->name);
             $sortie->setDateHeureDebut($this->generator->dateTimeBetween('now', '1 month'));
+            $sortie->setDuree($this->generator->numberBetween(15, 90));
             $sortie->setDateLimiteInscription($this->generator->dateTimeBetween('-1 month', 'now'));
-            $sortie->setNbInscriptionMax(($this->generator->randomNumber([5], [20])));
-            $sortie->setInfosSortie($this->generator->paragraph);
+            $sortie->setNbInscriptionMax($this->generator->numberBetween(5, 20));
+            $sortie->setInfosSortie($this->generator->words(10, true));
 
-            $manager->persist();
+            $manager->persist($sortie);
 
         }
 

@@ -52,6 +52,8 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private $etat;
 
+    private $inscrit = true;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -207,5 +209,28 @@ class Sortie
         $this->etat = $etat;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInscrit()
+    {
+        return $this->inscrit;
+    }
+
+    /**
+     * @param mixed $inscrit
+     * @return Sortie
+     */
+    public function setInscrit($inscrit)
+    {
+        $this->inscrit = $inscrit;
+        return $this;
+    }
+
+
+    public function __toString() {
+        return $this->etat;
     }
 }

@@ -11,6 +11,7 @@ use App\Form\SortieFormType;
 use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
+use ContainerCHGxxAV\getSortieControllerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,12 +26,18 @@ class SortieController extends AbstractController
         $search = new Search();
         $sortieList = $sortieRepository->findAll();
 
-//        $sortieForm = $this->createForm(ListSortiesType::class, $search);
-//        $sortieForm->handleRequest($request);
+        $sortieForm = $this->createForm(ListSortiesType::class, $search);
+        $sortieForm->handleRequest($request);
+
+        if($sortieForm->isSubmitted() && $sortieForm->isValid()){
+
+            $this->addFlash("success", "Recherche lancée !");
+            return $this->redirectToRoute("sortie_accueil");
+        }
 
         return $this->render('sortie/accueil.html.twig', [
             'sortieList' => $sortieList,
-            //'sortieForm' => $sortieForm->createView(),
+            'sortieForm' => $sortieForm->createView(),
         ]);
     }
 
@@ -48,7 +55,6 @@ class SortieController extends AbstractController
              * @var Participant $user
              */
             $user = $this->getUser();
-            ;
 
             $sortie->setOrganisateur($user);
             $sortie->setEtat($etatRepo->findOneBy(array('libelle'=>'créée')));

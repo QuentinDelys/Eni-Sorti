@@ -15,17 +15,17 @@
     </div>
 
     <h3>Filtrer les sorties</h3>
-{#    {{form_start(sortieForm)}}#}
-{#    {{form_row(sortieForm.campus)}}#}
-{#    {{form_row(sortieForm.nom)}}#}
-{#    {{form_row(sortieForm.dateHeureDebut)}}#}
-{#    {{form_row(sortieForm.dateHeureFin)}}#}
-{#    {{form_row(sortieForm.sortiesOrga)}}#}
-{#    {{form_row(sortieForm.sortiesInscris)}}#}
-{#    {{form_row(sortieForm.sortiesPasInscris)}}#}
-{#    {{form_row(sortieForm.sortiesPassees)}}#}
-{#    <button>Rechercher</button>#}
-{#    {{ form_end(sortieForm) }}#}
+    {{form_start(sortieForm)}}
+    {{form_row(sortieForm.campus)}}
+    {{form_row(sortieForm.nom)}}
+    {{form_row(sortieForm.dateHeureDebut)}}
+    {{form_row(sortieForm.dateHeureFin)}}
+    {{form_row(sortieForm.sortiesOrga)}}
+    {{form_row(sortieForm.sortiesInscris)}}
+    {{form_row(sortieForm.sortiesPasInscris)}}
+    {{form_row(sortieForm.sortiesPassees)}}
+    <button>Rechercher</button>
+    {{form_end(sortieForm)}}
 
     <div>
         <table>
@@ -36,13 +36,24 @@
                 <td>Clôture</td>
                 <td>inscrits/places</td>
                 <td>Etat</td>
-                <td>Inscrits</td>
-                <td>Organisateurs</td>
+                <td>Inscrit</td>
+                <td>Organisateur</td>
                 <td>Actions</td>
             </tr>
             </thead>
             <tbody>
-{#                {%for key, value in %}#}
+                {% for sortie in sortieList|sort ((a, b) => a.dateHeureDebut <=> b.dateHeureDebut) %}
+                    <tr>
+                        <td>{{sortie.nom}}</td>
+                        <td>{{sortie.dateHeureDebut|date('d/m/Y H:i')}}</td>
+                        <td>{{sortie.dateLimiteInscription|date('d/m/Y')}}</td>
+                        <td>{{sortie.nbInscriptionMax}}</td>
+                        <td>{{sortie.etat}}</td>
+                        <td>{{sortie.inscrit}}</td>
+                        <td>{{sortie.organisateur}}</td>
+{#                        <td>{{sortie.actions}}</td>#}
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
