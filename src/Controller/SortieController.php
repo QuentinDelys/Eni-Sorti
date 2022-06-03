@@ -45,47 +45,46 @@ class SortieController extends AbstractController
         $sortieForm->handleRequest($request);
         //traitement des boutons
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
-            if -----------------------
-            /**
-             * @var Participant $user
-             */
-            $user = $this->getUser();;
-
-            $sortie->setOrganisateur($user);
-            $sortie->setEtat($etatRepo->findOneBy(array('libelle' => 'Créée')));
-            $sortie->setCampus($user->getCampus());
-
-            $repo->add($sortie, true);
-            $this->addFlash("success", "sortie ajoutée avec succès !");
-            return $this->redirectToRoute("sortie_accueil");
-
-        if -------------------------------
-
-            /**
-             * @var Participant $user
-             */
-            $user = $this->getUser();;
-
-            $sortie->setOrganisateur($user);
-            $sortie->setEtat($etatRepo->findOneBy(array('libelle' => 'Ouverte')));
-            $sortie->setCampus($user->getCampus());
-
-            $repo->add($sortie, true);
-            $this->addFlash("success", "sortie ajoutée avec succès !");
-            return $this->redirectToRoute("sortie_accueil");
-
-        if --------------------------------
-
-            return $this->redirectToRoute("sortie_accueil");
-        endIf
 
 
+            if ($sortieForm->get('enregistrer')->isClicked()) {
+
+                /**
+                 * @var Participant $user
+                 */
+                $user = $this->getUser();;
+
+                $sortie->setOrganisateur($user);
+                $sortie->setEtat($etatRepo->findOneBy(array('libelle' => 'Créée')));
+                $sortie->setCampus($user->getCampus());
+
+                $repo->add($sortie, true);
+                $this->addFlash("success", "sortie ajoutée avec succès !");
+                return $this->redirectToRoute("sortie_accueil");
+            }
+
+            if ($sortieForm->get('publier')->isClicked()) {
+
+                /**
+                 * @var Participant $user
+                 */
+                $user = $this->getUser();;
+
+                $sortie->setOrganisateur($user);
+                $sortie->setEtat($etatRepo->findOneBy(array('libelle' => 'Ouverte')));
+                $sortie->setCampus($user->getCampus());
+
+                $repo->add($sortie, true);
+                $this->addFlash("success", "sortie ajoutée avec succès !");
+                return $this->redirectToRoute("sortie_accueil");
+            }
         }
 
         return $this->render('sortie/creerSortie.html.twig', [
             'sortieForm' => $sortieForm->createView()
         ]);
     }
+
 
     #[Route('/display{id}', name: 'displaySortie')]
     public function display($id, SortieRepository $sortieRepository): Response
@@ -98,8 +97,8 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/modifierSortie', name: 'modifierSortie')]
-    public function update(Integer $id, SortieRepository $repoSortie, Request $request): Response
+    #[Route('/modifierSortie/{id}', name: 'modifierSortie')]
+    public function update(int $id, SortieRepository $repoSortie, Request $request): Response
     {
         $sortie = $repoSortie->find($id);
         $SortieForm = $this->createForm(SortieFormType::class, $sortie);
@@ -116,6 +115,7 @@ class SortieController extends AbstractController
             'controller_name' => 'SortieController',
         ]);
     }
+
     public function remove($id, SortieRepository $repo): Response
     {
         $sortie = $repo->find($id);
