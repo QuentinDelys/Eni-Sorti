@@ -16,14 +16,16 @@
     {{ form_row(sortieForm.Campus) }}
     {{ form_row(sortieForm.ville) }}
     {{ form_row(sortieForm.Lieu) }}
+    {{ form_row(sortieForm.enregistrer) }}
+    {{ form_row(sortieForm.publier) }}
 {#    {{form_row(sortieForm.codePostal)}} #}
 {#    {{form_row(sortieForm.latitude)}} #}
 {#    {{form_row(sortieForm.longitude)}} #}
 
-<button name="enregistrer" class="btn btn-sm btn-warning" type="submit">Enregistrer</button>
-<a href="{{ path('sortie_accueil') }}">
-    <button name="publier" class="btn btn-sm btn-warning" type="submit">publier</button>
-    <a href="{{ path('sortie_accueil') }}">
+{#<button name="enregistrer" class="btn btn-sm btn-warning" type="submit">Enregistrer</button>#}
+{#<a href="{{ path('sortie_accueil') }}">#}
+{#    <button name="publier" class="btn btn-sm btn-warning" type="submit">publier</button>#}
+{#    <a href="{{ path('sortie_accueil') }}">#}
         <button name="annuler" class="btn btn-sm btn-warning" onclick="href='creerSortie.html.twig'">Annuler</button>
 
             {{ form_end(sortieForm) }}

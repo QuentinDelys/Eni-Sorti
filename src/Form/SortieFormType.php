@@ -5,8 +5,10 @@ namespace App\Form;
 use App\Entity\Sortie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,7 +28,7 @@ class SortieFormType extends AbstractType
                 'label' => 'Date et heure de début',
                 'required' => true
             ])
-            ->add('dateLimiteInscription', DateTimeType::class,  [
+            ->add('dateLimiteInscription', DateTimeType::class, [
                 'label' => 'Date limite d\'inscription',
                 'required' => true
             ])
@@ -67,8 +69,14 @@ class SortieFormType extends AbstractType
                 'choice_label' => "nom",
                 'class' => 'App\Entity\Lieu',
                 'required' => true
-            ]);
+            ])
+            ->add('enregistrer', SubmitType::class, [
+                'label' => 'enregistrer',
 
+            ])
+            ->add('publier', SubmitType::class, [
+                'label' => 'publier',
+            ]);
 //            ->add('date', TextType::class, [
 //                'label' => 'Etat de la sortie',
 //                'required' => true

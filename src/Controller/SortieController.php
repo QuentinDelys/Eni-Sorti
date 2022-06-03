@@ -107,7 +107,7 @@ class SortieController extends AbstractController
         //traitement des boutons2 pas sur!!!!!!!!!!!!!!!
         if ($SortieForm->isSubmitted() && $SortieForm->isValid()) {
 
-            if ($sortieForm->get('publier')->isClicked()) {
+            if ($SortieForm->get('publier')->isClicked()) {
 
                 /**
                  * @var Participant $user
@@ -122,7 +122,7 @@ class SortieController extends AbstractController
                 $this->addFlash("success", "sortie ajoutée avec succès !");
                 return $this->redirectToRoute("sortie_accueil");
             }
-            if ($sortieForm->get('enregistrer')->isClicked()) {
+            if ($SortieForm->get('enregistrer')->isClicked()) {
 
                 /**
                  * @var Participant $user
@@ -138,7 +138,7 @@ class SortieController extends AbstractController
                 return $this->redirectToRoute("sortie_accueil");
             }
         }
-            if ($sortieForm->get('supprimer')->isClicked()) {
+            if ($SortieForm->get('supprimer')->isClicked()) {
                 return $this->redirectToRoute("sortie_supprimerSortie");
 
             }
@@ -147,8 +147,7 @@ class SortieController extends AbstractController
             ]);
         }
 
-        #[
-        Route('/supprimerSortie/{id}', name: 'supprimerSortie')]
+        #[Route('/supprimerSortie/{id}', name: 'supprimerSortie')]
     public function remove($id, SortieRepository $repo): Response
     {
         $sortie = $repo->find($id);
