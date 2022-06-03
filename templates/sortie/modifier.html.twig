@@ -21,14 +21,13 @@
 {#    {{form_row(sortieForm.latitude)}} #}
 {#    {{form_row(sortieForm.longitude)}} #}
 
-<button class="btn btn-sm btn-warning" type="submit">Enregistrer</button><a href="{{ path('sortie_accueil') }}">
-    publier</button>
+<button name="Enregistrer" class="btn btn-sm btn-warning" type="submit">Enregistrer</button>
+<a href="{{ path('sortie_accueil') }}">
+    <button name="publier" class="btn btn-sm btn-warning" type="submit">publier la sortie</button>
     <a href="{{ path('sortie_accueil') }}">
-        <button class="btn btn-sm btn-warning" type="submit">publier la sortie</button>
+        <button name="Supprimer" class="btn btn-sm btn-warning" type="submit">Supprimer la sortie</button>
         <a href="{{ path('sortie_accueil') }}">
-            <button class="btn btn-sm btn-warning" type="submit">Supprimer la sortie</button>
-            <a href="{{ path('sortie_accueil') }}">
-            <button class="btn btn-sm btn-warning" type="submit">Annuler</button>
+            <button name="Annuler" class="btn btn-sm btn-warning" type="submit">Annuler</button>
             <a href="{{ path('sortie_accueil') }}">
 
                 {% endblock %}

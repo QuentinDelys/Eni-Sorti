@@ -44,16 +44,15 @@ class SortieController extends AbstractController
         $sortieForm = $this->createForm(SortieFormType::class, $sortie);
         $sortieForm->handleRequest($request);
 
-        if($sortieForm->isSubmitted() && $sortieForm->isValid()){
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
 
             /**
              * @var Participant $user
              */
-            $user = $this->getUser();
-            ;
+            $user = $this->getUser();;
 
             $sortie->setOrganisateur($user);
-            $sortie->setEtat($etatRepo->findOneBy(array('libelle'=>'créée')));
+            $sortie->setEtat($etatRepo->findOneBy(array('libelle' => 'créée')));
             $sortie->setCampus($user->getCampus());
 
             $repo->add($sortie, true);
@@ -85,7 +84,7 @@ class SortieController extends AbstractController
         $SortieForm->handleRequest($request);
 
         //traitement du formulaire
-        if($SortieForm->isSubmitted() && $SortieForm->isValid()) {
+        if ($SortieForm->isSubmitted() && $SortieForm->isValid()) {
 
             $repoSortie->add($sortie, true);
             $this->addFlash("success", "Sortie modifiée avec succès");
