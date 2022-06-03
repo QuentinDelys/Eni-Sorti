@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
+
 {% endblock %}
 
-{% block add %}
-<h2>Créer une sortie</h2>
+{% block body %}
+<h2>modifier la sortie</h2>
 
 {{ form_start(sortieForm) }}
     {{ form_row(sortieForm.nom) }}
@@ -21,10 +22,14 @@
 {#    {{form_row(sortieForm.longitude)}} #}
 
 <button class="btn btn-sm btn-warning" type="submit">Enregistrer</button><a href="{{ path('sortie_accueil') }}">
-    <button class="btn btn-sm btn-warning" type="submit">publier</button>
+    <button>publier</button>
     <a href="{{ path('sortie_accueil') }}">
-        <button class="btn btn-sm btn-warning" type="submit">Annuler</button>
+        <button class="btn btn-sm btn-warning" type="submit">publier la sortie</button>
         <a href="{{ path('sortie_accueil') }}">
+            <button class="btn btn-sm btn-warning" type="submit">Supprimer la sortie</button>
+            <a href="{{ path('sortie_accueil') }}">
+            <button class="btn btn-sm btn-warning" type="submit">Annuler</button>
+            <a href="{{ path('sortie_accueil') }}">
 
-            {{ form_end(sortieForm) }}
-            {% endblock %}
+                {% endblock %}
+

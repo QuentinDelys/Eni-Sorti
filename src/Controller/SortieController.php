@@ -11,6 +11,7 @@ use App\Form\SortieFormType;
 use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,21 +76,32 @@ class SortieController extends AbstractController
         ]);
     }
 
-//    #[Route('/update', name: 'updateSortie')]
-//    public function update(): Response
-//    {
-//        return $this->render('sortie/modifier.html.twig', [
-//            'controller_name' => 'SortieController',
-//        ]);
-//    }
-//
-//    #[Route('/cancel', name: 'cancelSortie')]
-//    public function cancel(): Response
-//    {
-//        return $this->render('sortie/annuler.html.twig', [
-//            'controller_name' => 'SortieController',
-//        ]);
-//    }
+    #[Route('/update', name: 'updateSortie')]
+    public function update(Integer $id, SortieRepository $repoSortie, Request $request): Response
+    {
+        $sortie = $repoSortie->find($id);
+        $SortieForm = $this->createForm(SortieFormType::class, $sortie);
+        $SortieForm->handleRequest($request);
+
+        //traitement du formulaire
+        if($SortieForm->isSubmitted() && $SortieForm->isValid()) {
+
+            $repoSortie->add($sortie, true);
+            $this->addFlash("success", "Sortie modifiée avec succès");
+            return $this->redirectToRoute("sortie_accueil");
+        }
+        return $this->render('sortie/modifier.html.twig', [
+            'controller_name' => 'SortieController',
+        ]);
+    }
+
+    #[Route('/remove', name: 'removeSortie')]
+    public function remove(): Response
+    {
+        return $this->render('sortie/annuler.html.twig', [
+            'controller_name' => 'SortieController',
+        ]);
+    }
 
 
 }
