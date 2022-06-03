@@ -43,7 +43,7 @@ class SortieController extends AbstractController
 
         $sortieForm = $this->createForm(SortieFormType::class, $sortie);
         $sortieForm->handleRequest($request);
-
+        //traitement des boutons
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
             if -----------------------
             /**
@@ -105,7 +105,7 @@ class SortieController extends AbstractController
         $SortieForm = $this->createForm(SortieFormType::class, $sortie);
         $SortieForm->handleRequest($request);
 
-        //traitement du formulaire
+        //traitement des boutons
         if ($SortieForm->isSubmitted() && $SortieForm->isValid()) {
 
             $repoSortie->add($sortie, true);
