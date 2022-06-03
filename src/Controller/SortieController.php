@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function Symfony\Component\Translation\t;
 
 #[Route('/sortie', name: 'sortie_')]
 class SortieController extends AbstractController
@@ -96,9 +97,12 @@ class SortieController extends AbstractController
     }
 
     #[Route('/remove', name: 'removeSortie')]
-    public function remove(): Response
+    public function remove($id, SortieRepository $repo): Response
     {
-        return $this->render('sortie/annuler.html.twig', [
+        $sortie = $repo->find($id);
+        $repo->remove($sortie, true);
+
+        return $this->render('sortie/modifier.html.twig', [
             'controller_name' => 'SortieController',
         ]);
     }
