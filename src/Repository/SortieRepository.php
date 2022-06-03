@@ -30,6 +30,15 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
+    public function update(Sortie $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
     public function remove(Sortie $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);

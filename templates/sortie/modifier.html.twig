@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+<h2>modifier la sortie</h2>
+
+{{ form_start(sortieForm) }}
+    {{ form_row(sortieForm.nom) }}
+    {{ form_row(sortieForm.dateHeureDebut) }}
+    {{ form_row(sortieForm.dateLimiteInscription) }}
+    {{ form_row(sortieForm.nbInscriptionMax) }}
+    {{ form_row(sortieForm.duree) }}
+    {{ form_row(sortieForm.infosSortie) }}
+    {{ form_row(sortieForm.Campus) }}
+    {{ form_row(sortieForm.ville) }}
+    {{ form_row(sortieForm.Lieu) }}
+{#    {{form_row(sortieForm.codePostal)}} #}
+{#    {{form_row(sortieForm.latitude)}} #}
+{#    {{form_row(sortieForm.longitude)}} #}
+
+<button name="Enregistrer" class="btn btn-sm btn-warning" type="submit">Enregistrer</button>
+<a href="{{ path('sortie_accueil') }}">
+    <button name="publier" class="btn btn-sm btn-warning" type="submit">publier la sortie</button>
+    <a href="{{ path('sortie_accueil') }}">
+        <button name="Supprimer" class="btn btn-sm btn-warning" type="submit">Supprimer la sortie</button>
+        <a href="{{ path('sortie_accueil') }}">
+            <button name="Annuler" class="btn btn-sm btn-warning" onclick="href='creerSortie.html.twig'">Annuler</button>
+
+
+                {% endblock %}
