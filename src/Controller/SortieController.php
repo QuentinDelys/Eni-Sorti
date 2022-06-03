@@ -110,20 +110,27 @@ class SortieController extends AbstractController
             $repoSortie->add($sortie, true);
             $this->addFlash("success", "Sortie modifiée avec succès");
             return $this->redirectToRoute("sortie_accueil");
+
+
+        }
+
+
+        if ($sortieForm->get('supprimer')->isClicked()) {
+            return $this->redirectToRoute("sortie_supprimerSortie");
+
         }
         return $this->render('sortie/modifier.html.twig', [
             'controller_name' => 'SortieController',
         ]);
     }
 
+    #[Route('/supprimerSortie/{id}', name: 'supprimerSortie')]
     public function remove($id, SortieRepository $repo): Response
     {
         $sortie = $repo->find($id);
         $repo->remove($sortie, true);
 
-        return $this->render('sortie/modifier.html.twig', [
-            'controller_name' => 'SortieController',
-        ]);
+        return $this->redirectToRoute("sortie_accueil");
     }
 
 
