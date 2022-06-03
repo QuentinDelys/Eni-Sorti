@@ -45,6 +45,21 @@ class SortieController extends AbstractController
         $sortieForm->handleRequest($request);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+            if -----------------------
+            /**
+             * @var Participant $user
+             */
+            $user = $this->getUser();;
+
+            $sortie->setOrganisateur($user);
+            $sortie->setEtat($etatRepo->findOneBy(array('libelle' => 'Créée')));
+            $sortie->setCampus($user->getCampus());
+
+            $repo->add($sortie, true);
+            $this->addFlash("success", "sortie ajoutée avec succès !");
+            return $this->redirectToRoute("sortie_accueil");
+
+        if -------------------------------
 
             /**
              * @var Participant $user
@@ -52,12 +67,19 @@ class SortieController extends AbstractController
             $user = $this->getUser();;
 
             $sortie->setOrganisateur($user);
-            $sortie->setEtat($etatRepo->findOneBy(array('libelle' => 'créée')));
+            $sortie->setEtat($etatRepo->findOneBy(array('libelle' => 'Ouverte')));
             $sortie->setCampus($user->getCampus());
 
             $repo->add($sortie, true);
             $this->addFlash("success", "sortie ajoutée avec succès !");
             return $this->redirectToRoute("sortie_accueil");
+
+        if --------------------------------
+
+            return $this->redirectToRoute("sortie_accueil");
+        endIf
+
+
         }
 
         return $this->render('sortie/creerSortie.html.twig', [
@@ -76,7 +98,7 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/update', name: 'updateSortie')]
+    #[Route('/modifierSortie', name: 'modifierSortie')]
     public function update(Integer $id, SortieRepository $repoSortie, Request $request): Response
     {
         $sortie = $repoSortie->find($id);
@@ -94,8 +116,6 @@ class SortieController extends AbstractController
             'controller_name' => 'SortieController',
         ]);
     }
-
-    #[Route('/remove', name: 'removeSortie')]
     public function remove($id, SortieRepository $repo): Response
     {
         $sortie = $repo->find($id);
