@@ -2,30 +2,49 @@
 
 namespace App\Form\Model;
 
+use App\Entity\Campus;
+
+use Doctrine\ORM\Mapping as ORM;
+
 class Search {
 
-public $campus;
-public $nom;
-public $dateHeureDebut;
-public $dateHeureFin;
-public $sortiesOrga;
-public $sortiesInscris;
-public $sortiesPasInscris;
-public $sortiesPassees;
+    #[ORM\ManyToOne(targetEntity: Campus::class, inversedBy: 'sorties')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $campus;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $nom;
+
+    #[ORM\Column(type: 'datetime')]
+    private $dateHeureDebut;
+
+    #[ORM\Column(type: 'datetime')]
+    private $dateHeureFin;
+
+    #[ORM\Column(type: 'boolean')]
+    private $sortiesOrga;
+
+    #[ORM\Column(type: 'boolean')]
+    private $sortiesInscris;
+
+    #[ORM\Column(type: 'boolean')]
+    private $sortiesPasInscris;
+
+    #[ORM\Column(type: 'boolean')]
+    private $sortiesPassees;
 
     /**
-     * @return mixed
+     * @return Campus
      */
-    public function getCampus()
-    {
+    public function getCampus(){
         return $this->campus;
     }
 
     /**
-     * @param mixed $campus
+     * @param Campus $campus
      * @return Search
      */
-    public function setCampus($campus)
+    public function setCampus($campus): Search
     {
         $this->campus = $campus;
         return $this;
@@ -86,75 +105,77 @@ public $sortiesPassees;
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function getSortiesOrga()
+    public function isSortiesOrga(): ?bool
     {
         return $this->sortiesOrga;
     }
 
     /**
-     * @param mixed $sortiesOrga
+     * @param bool $sortiesOrga
      * @return Search
      */
-    public function setSortiesOrga($sortiesOrga)
+    public function setSortiesOrga(?bool $sortiesOrga): Search
     {
         $this->sortiesOrga = $sortiesOrga;
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function getSortiesInscris()
+    public function isSortiesInscris(): ?bool
     {
         return $this->sortiesInscris;
     }
 
     /**
-     * @param mixed $sortiesInscris
+     * @param bool $sortiesInscris
      * @return Search
      */
-    public function setSortiesInscris($sortiesInscris)
+    public function setSortiesInscris(?bool $sortiesInscris): Search
     {
         $this->sortiesInscris = $sortiesInscris;
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function getSortiesPasInscris()
+    public function isSortiesPasInscris(): ?bool
     {
         return $this->sortiesPasInscris;
     }
 
     /**
-     * @param mixed $sortiesPasInscris
+     * @param bool $sortiesPasInscris
      * @return Search
      */
-    public function setSortiesPasInscris($sortiesPasInscris)
+    public function setSortiesPasInscris(?bool $sortiesPasInscris): Search
     {
         $this->sortiesPasInscris = $sortiesPasInscris;
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function getSortiesPassees()
+    public function isSortiesPassees(): ?bool
     {
         return $this->sortiesPassees;
     }
 
     /**
-     * @param mixed $sortiesPassees
+     * @param bool $sortiesPassees
      * @return Search
      */
-    public function setSortiesPassees($sortiesPassees)
+    public function setSortiesPassees(?bool $sortiesPassees): Search
     {
         $this->sortiesPassees = $sortiesPassees;
         return $this;
     }
+
+
 
 }

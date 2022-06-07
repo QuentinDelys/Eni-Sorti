@@ -20,23 +20,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/accueil', name: 'accueil')]
-    public function accueil(SortieRepository $sortieRepository, Request $request): Response
+    public function accueil(SortieRepository $sortieRepository,EtatRepository $etatRepository, Request $request): Response
     {
         $search = new Search();
-        $sortieList = $sortieRepository->findAll();
+        $user = $this->getUser();
 
         $sortieForm = $this->createForm(ListSortiesType::class, $search);
         $sortieForm->handleRequest($request);
 
-        if($sortieForm->isSubmitted() && $sortieForm->isValid()){
+        $sortieList = $sortieRepository->filtre($search, $user, $etatRepository);
 
+        if($sortieForm->isSubmitted() && $sortieForm->isValid()){
             $this->addFlash("success", "Recherche lancée !");
-            return $this->redirectToRoute("sortie_accueil");
         }
 
         return $this->render('sortie/accueil.html.twig', [
             'sortieList' => $sortieList,
-            //'sortieForm' => $sortieForm->createView(),
+            'sortieForm' => $sortieForm->createView()
         ]);
     }
 

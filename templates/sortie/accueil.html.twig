@@ -24,7 +24,7 @@
     {{form_row(sortieForm.sortiesInscris)}}
     {{form_row(sortieForm.sortiesPasInscris)}}
     {{form_row(sortieForm.sortiesPassees)}}
-    <button>Rechercher</button>
+    {{form_row(sortieForm.rechercher)}}
     {{form_end(sortieForm)}}
 
     <div>
@@ -42,7 +42,8 @@
             </tr>
             </thead>
             <tbody>
-                {% for sortie in sortieList|sort ((a, b) => a.dateHeureDebut <=> b.dateHeureDebut) %}
+                {% for sortie in sortieList%}
+{#                    |sort ((a, b) => a.dateHeureDebut <=> b.dateHeureDebut) %}#}
                     <tr>
                         <td>{{sortie.nom}}</td>
                         <td>{{sortie.dateHeureDebut|date('d/m/Y H:i')}}</td>
