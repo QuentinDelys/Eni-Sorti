@@ -123,7 +123,7 @@ class SortieController extends AbstractController
                 $sortie->setCampus($user->getCampus());
 
                 $repoSortie->add($sortie, true);
-                $this->addFlash("success", "sortie ajoutée avec succès !");
+                $this->addFlash("success", "sortie modifiée avec succès !");
                 return $this->redirectToRoute("sortie_accueil");
             }
             if ($SortieForm->get('enregistrer')->isClicked()) {
@@ -131,14 +131,14 @@ class SortieController extends AbstractController
                 /**
                  * @var Participant $user
                  */
-                $user = $this->getUser();;
+                $user = $this->getUser();
 
                 $sortie->setOrganisateur($user);
                 $sortie->setEtat($etatRepo->findOneBy(array('libelle' => 'Créée')));
                 $sortie->setCampus($user->getCampus());
 
                 $repoSortie->add($sortie, true);
-                $this->addFlash("success", "sortie ajoutée avec succès !");
+                $this->addFlash("success", "sortie modifiée avec succès !");
                 return $this->redirectToRoute("sortie_accueil");
             }
         }
@@ -157,6 +157,7 @@ class SortieController extends AbstractController
         $sortie = $repo->find($id);
         $repo->remove($sortie, true);
 
+        $this->addFlash("success", "sortie supprimée avec succès !");
         return $this->redirectToRoute("sortie_accueil");
     }
 
