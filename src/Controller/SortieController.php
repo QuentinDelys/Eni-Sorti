@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Campus;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\ListSortiesType;
@@ -30,22 +29,13 @@ class SortieController extends AbstractController
 
         $sortieList = $sortieRepository->filtre($search, $user, $etatRepository);
 
-//        $boutonCreer = $this.get ...
-//        $boutonCreer = $this->createForm();
-//        $boutonCreer->handleRequest($request);
-
-
         if($sortieForm->isSubmitted() && $sortieForm->isValid()){
             $this->addFlash("success", "Recherche lancée !");
         }
 
-//        if ($boutonCreer->isSubmitted() && $boutonCreer->isValid()) {
-//            return $this->redirectToRoute("sortie_creerSortie");
-//        }
-
         return $this->render('sortie/accueil.html.twig', [
             'sortieList' => $sortieList,
-            'sortieForm' => $sortieForm->createView()
+            'sortieForm' => $sortieForm->createView(),
         ]);
 
     }

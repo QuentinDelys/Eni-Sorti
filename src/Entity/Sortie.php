@@ -52,7 +52,6 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private $etat;
 
-    private $inscrit = true;
 
     public function __construct()
     {
