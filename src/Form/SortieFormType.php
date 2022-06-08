@@ -68,7 +68,7 @@ class SortieFormType extends AbstractType
                 'required' => true, 'mapped' => false
             ])
             ->add('Lieu', EntityType::class, [
-                'label' => 'Campus de la sortie',
+                'label' => 'Lieu de la sortie',
                 'choice_label' => "nom",
                 'class' => 'App\Entity\Lieu',
                 'required' => true

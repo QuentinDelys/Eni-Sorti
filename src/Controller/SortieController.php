@@ -35,7 +35,7 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/accueil.html.twig', [
             'sortieList' => $sortieList,
-            'sortieForm' => $sortieForm->createView(),
+            'sortieForm' => $sortieForm->createView()
         ]);
 
     }
@@ -90,7 +90,7 @@ class SortieController extends AbstractController
     }
 
 
-    #[Route('/display{id}', name: 'displaySortie')]
+    #[Route('/display/{id}', name: 'displaySortie')]
     public function display($id, SortieRepository $sortieRepository): Response
     {
         $sortie = $sortieRepository->find($id);

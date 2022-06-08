@@ -14,7 +14,7 @@ td,th {
     padding:0.6em;
 }
 table {
-    margin : 3em;
+
     justify-content: center;
     align-items: center;
     align-self: center;
@@ -56,11 +56,16 @@ table {
     box-shadow: 5px 5px 5px black;
 }
 
-*{
-    margin-right: 10px;
-    margin-left: 10px;
-}
+/**{*/
+/*    margin-right: 10px;*/
+/*    margin-left: 10px;*/
+/*}*/
 #tableau{
     margin-left: auto;
     margin-right: auto;
+}
+nav a {
+    display: block;
+    padding: 5px 8px;
+    margin-right: 10px;
 }

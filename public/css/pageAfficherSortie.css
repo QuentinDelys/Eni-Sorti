@@ -2,3 +2,24 @@ table,
 td {
     border: 1px solid #333;
 }
+
+#blocsChamps{
+    display: flex;
+    font-family: 'Hachi Maru Pop', "Times New Roman", cursive;
+    font-size: large;
+    text-align: left;
+}
+
+div.container{
+
+    padding-bottom: 10%;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 10%;
+    text-align: left;
+}
+
+#liste{
+    padding-top: 10%;
+    display: table-cell;
+}
