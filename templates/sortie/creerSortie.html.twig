@@ -1,32 +1,50 @@
 {% extends 'base.html.twig' %}
 
+{% block link %}
+    <link rel="stylesheet" href="{{asset('css/pageCreerSortie.css')}}">
+{% endblock %}
+
 {% block title %}
 {% endblock %}
 
 {% block add %}
-<h2>Créer une sortie</h2>
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <h2>Créer une sortie</h2>
+                <div id="champs"  class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    {{ form_start(sortieForm) }}
+                    {{ form_row(sortieForm.nom) }}
+                    {{ form_row(sortieForm.dateHeureDebut) }}
+                    {{ form_row(sortieForm.dateLimiteInscription) }}
+                    {{ form_row(sortieForm.nbInscriptionMax) }}
+                    {{ form_row(sortieForm.duree) }}
+                    {{ form_row(sortieForm.infosSortie) }}
+                </div>
+                <div id="champs" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    {{ form_row(sortieForm.Campus) }}
+                    {{ form_row(sortieForm.ville) }}
+                    {{ form_row(sortieForm.Lieu) }}
 
-{{ form_start(sortieForm) }}
-    {{ form_row(sortieForm.nom) }}
-    {{ form_row(sortieForm.dateHeureDebut) }}
-    {{ form_row(sortieForm.dateLimiteInscription) }}
-    {{ form_row(sortieForm.nbInscriptionMax) }}
-    {{ form_row(sortieForm.duree) }}
-    {{ form_row(sortieForm.infosSortie) }}
-    {{ form_row(sortieForm.Campus) }}
-    {{ form_row(sortieForm.ville) }}
-    {{ form_row(sortieForm.Lieu) }}
-    {{ form_row(sortieForm.enregistrer) }}
-    {{ form_row(sortieForm.publier) }}
-{#    {{form_row(sortieForm.codePostal)}} #}
-{#    {{form_row(sortieForm.latitude)}} #}
-{#    {{form_row(sortieForm.longitude)}} #}
+                    {#    {{form_row(sortieForm.codePostal)}} #}
+                    {#    {{form_row(sortieForm.latitude)}} #}
+                    {#    {{form_row(sortieForm.longitude)}} #}
+                </div>
+                <div id="selection">
+                    {{ form_row(sortieForm.enregistrer) }}
+                    {{ form_row(sortieForm.publier) }}
+                    {{ form_row(sortieForm.annuler) }}
+                </div>
+                {# <button name="enregistrer" class="btn btn-sm btn-warning" type="submit">Enregistrer</button> #}
+                {# <a href="{{ path('sortie_accueil') }}"> #}
+                {#    <button name="publier" class="btn btn-sm btn-warning" type="submit">publier</button> #}
+                {#    <a href="{{ path('sortie_accueil') }}"> #}
+                {#                <button name="annuler" class="btn btn-sm btn-warning" onclick="href='creerSortie.html.twig'">Annuler #}
+                {#                </button> #}
 
-{#<button name="enregistrer" class="btn btn-sm btn-warning" type="submit">Enregistrer</button>#}
-{#<a href="{{ path('sortie_accueil') }}">#}
-{#    <button name="publier" class="btn btn-sm btn-warning" type="submit">publier</button>#}
-{#    <a href="{{ path('sortie_accueil') }}">#}
-        <button name="annuler" class="btn btn-sm btn-warning" onclick="href='creerSortie.html.twig'">Annuler</button>
+                {{ form_end(sortieForm) }}
 
-            {{ form_end(sortieForm) }}
-            {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

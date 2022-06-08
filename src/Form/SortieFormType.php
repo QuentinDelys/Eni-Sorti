@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,11 +27,13 @@ class SortieFormType extends AbstractType
             ])
             ->add('dateHeureDebut', DateTimeType::class, [
                 'label' => 'Date et heure de début',
-                'required' => true
+                'required' => true,
+                 'widget' =>'single_text'
             ])
             ->add('dateLimiteInscription', DateTimeType::class, [
                 'label' => 'Date limite d\'inscription',
-                'required' => true
+                'required' => true,
+                'widget' =>'single_text'
             ])
             ->add('nbInscriptionMax', TextType::class, [
                 'label' => 'Nombre max d\'inscrits',
@@ -72,10 +75,12 @@ class SortieFormType extends AbstractType
             ])
             ->add('enregistrer', SubmitType::class, [
                 'label' => 'enregistrer',
-
             ])
             ->add('publier', SubmitType::class, [
                 'label' => 'publier',
+            ])
+            ->add('annuler', ResetType::class, [
+                'label' => 'annuler',
             ]);
 //            ->add('date', TextType::class, [
 //                'label' => 'Etat de la sortie',

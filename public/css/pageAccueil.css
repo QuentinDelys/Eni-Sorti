@@ -1,4 +1,64 @@
 table,
-td {
-    border: 1px solid #333;
+th {
+    border: 2px solid #333;
+}
+tr:nth-child(even) {
+    background-color : #D3D3D3;
+}
+tr:nth-child(odd)  {
+    background-color : #f1f2f3;
+}
+
+td,th {
+    padding:0.6em;
+}
+table {
+    margin : 3em;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+
+#date {
+    display: flex;
+    flex-direction: row
+}
+#infos{
+    font-size: x-large;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    size: 50px;
+
+}
+
+#sortie{
+    display: flex;
+    justify-content: flex-start;
+    padding: 15px;
+    box-shadow: 5px 5px 5px black;
+}
+#filtrer{
+    font-size: large;
+    display: flex;
+    justify-content: flex-start;
+}
+#accueilChamps{
+    font-size: large;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 0;
+}
+#rechercher{
+    padding: 30px;
+    box-shadow: 5px 5px 5px black;
+}
+
+*{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+#tableau{
+    margin-left: auto;
+    margin-right: auto;
 }

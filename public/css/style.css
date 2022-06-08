@@ -35,18 +35,18 @@ img{
     max-width: 100%;
 }
 
-body > .container{
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
+/*body > .container{*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    min-height: 100vh;*/
+/*}*/
 /***********************************************************
 * Header
 ************************************************************/
-header
-{
-    background-color: tomato;
-}
+/*header*/
+/*{*/
+/*    background-color: tomato;*/
+/*}*/
 .site-title{
     display: flex;
     text-align: center;
@@ -59,11 +59,17 @@ header
     margin-right: 5px;
 }
 
+#liens{
+    display: flex;
+    justify-content: flex-end;
+}
+
 nav ul{
     margin: 5px 0;
     display: flex;
     list-style: none;
     padding-left: 0;
+
 }
 
 nav a{
@@ -71,17 +77,17 @@ nav a{
     padding: 5px 8px;
     margin-right: 10px;
 }
-.
+
 
 /***********************************************************
 * Main
 ************************************************************/
-main{
-    padding: 30px 0;
-    border-top: 1px solid #D3D3D3;
-    border-bottom: 1px solid #D3D3D3;
-    min-height: 700px;
-}
+/*main{*/
+/*    padding: 30px 0;*/
+/*    border-top: 1px solid #D3D3D3;*/
+/*    border-bottom: 1px solid #D3D3D3;*/
+/*    min-height: 700px;*/
+/*}*/
 
 h1{
     margin:0;
@@ -90,10 +96,10 @@ h1{
 /***********************************************************
 * Footer
 ************************************************************/
-footer{
-    padding: 20px 0;
-    text-align: center;
+footer {
+    position: absolute; bottom: 0; left: 0; right: 0
 }
+
 footer a{
     text-decoration: none;
 
@@ -107,10 +113,14 @@ a:hover {
 * Form
 ************************************************************/
 label{
-    display: block;
+    display: inline;
+    justify-content: flex-start;
 }
 .botton{
     min-width: 10px;
     max-width: 50px;
 
+}
+.item {
+    flex: 2 1 auto;
 }

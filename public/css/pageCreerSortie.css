@@ -1,0 +1,11 @@
+
+#champs{
+}
+
+#selection{
+    color: #B0413E;
+    display: flex;
+    justify-content: space-around;
+    size: 50px;
+
+}

@@ -33,11 +33,13 @@ class ListSortiesType extends AbstractType
             ])
             ->add('dateHeureDebut', DateTimeType::class,[
                 'label' => 'Entre ',
-                'required' => false
+                'required' => false,
+                'widget' =>'single_text'
             ])
             ->add('dateHeureFin', DateTimeType::class,[
-                'label'=> 'et',
-                'required' => false
+                'label'=> '  et ',
+                'required' => false,
+                'widget' =>'single_text'
             ])
             ->add('sortiesOrga', CheckboxType::class,[
                 'label'=> 'Sorties dont je suis l\'organisateur/trice',
