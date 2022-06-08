@@ -1,10 +1,28 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Bonjour à toi Utilisateur de Sortie.com !{% endblock %}
+
 {% block link %}
-<link rel="stylesheet" href="{{asset('css/pageAccueil.css')}}">
+    <link rel="stylesheet" href="{{asset('css/pageAccueil.css')}}">
 {% endblock %}
 
-{% block title %}Bonjour à toi Utilisateur de Sortie.com !{% endblock %}
+
+{% block nav %}
+    <nav class="menu">
+        <ul>
+            {% if app.user %}
+                <li><a href="{{path('lieu_villes')}}">Villes</a></li>
+                <li><a href="{{path('lieu_campus')}}">Campus</a></li>
+                <li><a href="{{path('sortie_accueil')}}">Accueil</a></li>
+                <li><a href="{{path('participant_edit')}}">Mon profil</a></li>
+                <li><a href="{{path('app_logout')}}" title="Se déconnecter">Se déconnecter</a></li>
+            {% else %}
+                <li><a href="{{path('app_login')}}" title="Se connecter">Se connecter</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}
+
 
 {% block body %}
     <div>
@@ -14,6 +32,7 @@
         {% endif %}
     </div>
 
+    <div>
     <h3>Filtrer les sorties</h3>
     {{form_start(sortieForm)}}
     {{form_row(sortieForm.campus)}}
@@ -26,6 +45,7 @@
     {{form_row(sortieForm.sortiesPassees)}}
     {{form_row(sortieForm.rechercher)}}
     {{form_end(sortieForm)}}
+    </div><br>
 
     <div>
         <table>
@@ -48,7 +68,7 @@
                         <td>{{sortie.nom}}</td>
                         <td>{{sortie.dateHeureDebut|date('d/m/Y H:i')}}</td>
                         <td>{{sortie.dateLimiteInscription|date('d/m/Y')}}</td>
-                        <td>{{sortie.nbInscriptionMax}}</td>
+                        <td>{{sortie.participants.count()}} / {{sortie.nbInscriptionMax}}</td>
                         <td>{{sortie.etat}}</td>
                         <td>{{sortie.inscrit}}</td>
                         <td>{{sortie.organisateur}}</td>
@@ -57,8 +77,8 @@
                 {% endfor %}
             </tbody>
         </table>
-    </div>
+    </div><br>
 
-    <button onclick="href='creerSortie.html.twig'">Créer une sortie</button>
+    <a href="{{path('sortie_creerSortie')}}"><button type="button" name="creer" onclick="location.href='creerSortie.html.twig'">Créer une sortie</button></a>
 
 {% endblock %}

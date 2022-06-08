@@ -68,7 +68,7 @@ class SortieRepository extends ServiceEntityRepository
                     ->setParameter('dateHeureDebut', $search->getDateHeureDebut());
             }
             if($search->getDateHeureFin()){
-                $qb->andWhere('t.dateLimiteInscription < :dateHeureFin')
+                $qb->andWhere('t.dateHeureDebut < :dateHeureFin')
                     ->setParameter('dateHeureFin', $search->getDateHeureFin());
             }
             if($search->isSortiesOrga()){
@@ -83,10 +83,11 @@ class SortieRepository extends ServiceEntityRepository
                 $qb->andWhere(':isSortiesPasInscris MEMBER OF t.participants')
                     ->setParameter('isSortiesPasInscris', $user);
             }
-//            if($search->isSortiesPassees()){
-//                $qb->andWhere('t.campus = :campus')
-//                    ->setParameter('campus', $search->getCampus()->getId());
-//            }
+            if($search->isSortiesPassees()){
+//            $etat = $etatRepository->findOneBySomeField('etat');
+                $qb->andWhere('t.etat = :isSortiesPassees')
+                    ->setParameter('isSortiesPassees', $etatRepository->findBy(array('libelle'=> "passée")));
+            }
 
             return $qb->getQuery()->getResult();
     }
