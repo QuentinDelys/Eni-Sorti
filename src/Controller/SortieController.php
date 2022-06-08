@@ -20,24 +20,34 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/accueil', name: 'accueil')]
-    public function accueil(SortieRepository $sortieRepository, Request $request): Response
+    public function accueil(SortieRepository $sortieRepository,EtatRepository $etatRepository, Request $request): Response
     {
         $search = new Search();
-        $sortieList = $sortieRepository->findAll();
+        $user = $this->getUser();
 
         $sortieForm = $this->createForm(ListSortiesType::class, $search);
         $sortieForm->handleRequest($request);
 
-        if($sortieForm->isSubmitted() && $sortieForm->isValid()){
+        $sortieList = $sortieRepository->filtre($search, $user, $etatRepository);
 
+//        $boutonCreer = $this.get ...
+//        $boutonCreer = $this->createForm();
+//        $boutonCreer->handleRequest($request);
+
+
+        if($sortieForm->isSubmitted() && $sortieForm->isValid()){
             $this->addFlash("success", "Recherche lancée !");
-            return $this->redirectToRoute("sortie_accueil");
         }
+
+//        if ($boutonCreer->isSubmitted() && $boutonCreer->isValid()) {
+//            return $this->redirectToRoute("sortie_creerSortie");
+//        }
 
         return $this->render('sortie/accueil.html.twig', [
             'sortieList' => $sortieList,
-            'sortieForm' => $sortieForm->createView(),
+            'sortieForm' => $sortieForm->createView()
         ]);
+
     }
 
     #[Route('/creerSortie', name: 'creerSortie')]
@@ -151,7 +161,7 @@ class SortieController extends AbstractController
             ]);
         }
 
-        #[Route('/supprimerSortie/{id}', name: 'supprimerSortie')]
+    #[Route('/supprimerSortie/{id}', name: 'supprimerSortie')]
     public function remove($id, SortieRepository $repo): Response
     {
         $sortie = $repo->find($id);
@@ -160,6 +170,5 @@ class SortieController extends AbstractController
         $this->addFlash("success", "sortie supprimée avec succès !");
         return $this->redirectToRoute("sortie_accueil");
     }
-
 
 }

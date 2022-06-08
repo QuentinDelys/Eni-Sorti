@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{parent()}} - Annuler une sortie{% endblock %}
+
+{% block body %}
+
+<h3>Annuler une sortie</h3>
+
+    <div>
+    Nom de la sortie : {{sortie.nom}}
+    Date de la sortie : {{sortie.dateHeureDebut}}
+    Campus : {{sortie.campus}}
+    Lieu : {{sortie.lieu}}
+    Motif :
+    </div>
+
+
+{% endblock %}

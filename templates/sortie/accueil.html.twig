@@ -1,81 +1,84 @@
 {% extends 'base.html.twig' %}
 
-{% block link %}
-    <link rel="stylesheet" href="{{ asset('css/pageAccueil.css') }}">
-{% endblock %}
-
 {% block title %}Bonjour à toi Utilisateur de Sortie.com !{% endblock %}
 
+{% block link %}
+    <link rel="stylesheet" href="{{asset('css/pageAccueil.css')}}">
+{% endblock %}
+
+
+{% block nav %}
+    <nav class="menu">
+        <ul>
+            {% if app.user %}
+                <li><a href="{{path('lieu_villes')}}">Villes</a></li>
+                <li><a href="{{path('lieu_campus')}}">Campus</a></li>
+                <li><a href="{{path('sortie_accueil')}}">Accueil</a></li>
+                <li><a href="{{path('participant_edit')}}">Mon profil</a></li>
+                <li><a href="{{path('app_logout')}}" title="Se déconnecter">Se déconnecter</a></li>
+            {% else %}
+                <li><a href="{{path('app_login')}}" title="Se connecter">Se connecter</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}
+
+
 {% block body %}
-    <div class="container-fluid">
-        <div class="row">
-            <div id="infos">
-                <div>
-                    <p>Date du jour : {{ "now"|date("d/m/Y") }}</p>
-                </div>
-                <div>
-                    {% if app.user %}
-                    <p>Participant : {{ app.user.userIdentifier }}</p>
-                </div>
-                {% endif %}
-            </div>
-            <div id="filtrer">
-            <h3>Filtrer les sorties</h3>
-            </div>
-            <div id="accueilChamps" class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-
-                {{ form_start(sortieForm) }}
-                {{ form_row(sortieForm.campus) }}
-                {{ form_row(sortieForm.nom) }}
-                <div id="date">
-                    {{ form_row(sortieForm.dateHeureDebut) }}
-
-                    {{ form_row(sortieForm.dateHeureFin) }}
-                </div>
-            </div>
-            <div id="accueilChamps" class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                {{ form_row(sortieForm.sortiesOrga) }}
-                {{ form_row(sortieForm.sortiesInscris) }}
-                {{ form_row(sortieForm.sortiesPasInscris) }}
-                {{ form_row(sortieForm.sortiesPassees) }}
-            </div>
-            <div id="accueilChamps" class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                <button id="rechercher" >Rechercher</button>
-                {{ form_end(sortieForm) }}
-            </div>
-            <div id="tableau" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <table>
-                    <thead>
-                    <tr>
-                        <td>Nom de la sortie</td>
-                        <td>Date de la sortie</td>
-                        <td>Clôture</td>
-                        <td>inscrits/places</td>
-                        <td>Etat</td>
-                        <td>Inscrit</td>
-                        <td>Organisateur</td>
-                        <td>Actions</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for sortie in sortieList|sort ((a, b) => a.dateHeureDebut <=> b.dateHeureDebut) %}
-                        <tr>
-                            <td>{{ sortie.nom }}</td>
-                            <td>{{ sortie.dateHeureDebut|date('d/m/Y H:i') }}</td>
-                            <td>{{ sortie.dateLimiteInscription|date('d/m/Y') }}</td>
-                            <td>{{ sortie.nbInscriptionMax }}</td>
-                            <td>{{ sortie.etat }}</td>
-                            <td>{{ sortie.inscrit }}</td>
-                            <td>{{ sortie.organisateur }}</td>
-                            {#                        <td>{{sortie.actions}}</td> #}
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div>
-                <button id="sortie" onclick="href='creerSortie.html.twig'">Créer une sortie</button>
-            </div>
-        </div>
+    <div>
+        <p>Date du jour : {{ "now"|date("d/m/Y") }}</p>
+        {% if app.user%}
+            <p>Participant : {{app.user.userIdentifier}}</p>
+        {% endif %}
     </div>
+
+    <div>
+    <h3>Filtrer les sorties</h3>
+    {{form_start(sortieForm)}}
+    {{form_row(sortieForm.campus)}}
+    {{form_row(sortieForm.nom)}}
+    {{form_row(sortieForm.dateHeureDebut)}}
+    {{form_row(sortieForm.dateHeureFin)}}
+    {{form_row(sortieForm.sortiesOrga)}}
+    {{form_row(sortieForm.sortiesInscris)}}
+    {{form_row(sortieForm.sortiesPasInscris)}}
+    {{form_row(sortieForm.sortiesPassees)}}
+    {{form_row(sortieForm.rechercher)}}
+    {{form_end(sortieForm)}}
+    </div><br>
+
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <td>Nom de la sortie</td>
+                <td>Date de la sortie</td>
+                <td>Clôture</td>
+                <td>inscrits/places</td>
+                <td>Etat</td>
+                <td>Inscrit</td>
+                <td>Organisateur</td>
+                <td>Actions</td>
+            </tr>
+            </thead>
+            <tbody>
+                {% for sortie in sortieList%}
+{#                    |sort ((a, b) => a.dateHeureDebut <=> b.dateHeureDebut) %}#}
+                    <tr>
+                        <td>{{sortie.nom}}</td>
+                        <td>{{sortie.dateHeureDebut|date('d/m/Y H:i')}}</td>
+                        <td>{{sortie.dateLimiteInscription|date('d/m/Y')}}</td>
+                        <td>{{sortie.participants.count()}} / {{sortie.nbInscriptionMax}}</td>
+                        <td>{{sortie.etat}}</td>
+                        <td>{{sortie.inscrit}}</td>
+                        <td>{{sortie.organisateur}}</td>
+{#                        <td>{{sortie.actions}}</td>#}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div><br>
+
+    <a href="{{path('sortie_creerSortie')}}"><button type="button" name="creer" onclick="location.href='creerSortie.html.twig'">Créer une sortie</button></a>
+
 {% endblock %}

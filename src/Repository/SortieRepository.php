@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use function Symfony\Component\String\s;
 
 /**
  * @extends ServiceEntityRepository<Sortie>
@@ -51,25 +52,44 @@ class SortieRepository extends ServiceEntityRepository
     /**
      * @return Sortie[] Returns an array of Sortie objects
      */
-    public function findByExampleField($value): array
+    public function filtre($search, $user, EtatRepository $etatRepository): array
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $qb = $this->createQueryBuilder('t');
+            if($search->getCampus()){
+                $qb->andWhere('t.campus = :campus')
+                    ->setParameter('campus', $search->getCampus()->getId());
+            }
+            if($search->getNom()){
+                $qb->andWhere('t.nom like :nom')
+                    ->setParameter('nom', '%' . $search->getNom() . '%');
+            }
+            if($search->getDateHeureDebut()){
+                $qb->andWhere('t.dateHeureDebut > :dateHeureDebut')
+                    ->setParameter('dateHeureDebut', $search->getDateHeureDebut());
+            }
+            if($search->getDateHeureFin()){
+                $qb->andWhere('t.dateHeureDebut < :dateHeureFin')
+                    ->setParameter('dateHeureFin', $search->getDateHeureFin());
+            }
+            if($search->isSortiesOrga()){
+                $qb->andWhere('t.organisateur = :isOrganisateur')
+                    ->setParameter('isOrganisateur', $user);
+            }
+            if($search->isSortiesInscris()){
+                $qb->andWhere(':isSortiesInscris MEMBER OF t.participants')
+                    ->setParameter('isSortiesInscris', $user);
+            }
+            if($search->isSortiesPasInscris()){
+                $qb->andWhere(':isSortiesPasInscris MEMBER OF t.participants')
+                    ->setParameter('isSortiesPasInscris', $user);
+            }
+            if($search->isSortiesPassees()){
+//            $etat = $etatRepository->findOneBySomeField('etat');
+                $qb->andWhere('t.etat = :isSortiesPassees')
+                    ->setParameter('isSortiesPassees', $etatRepository->findBy(array('libelle'=> "passée")));
+            }
+
+            return $qb->getQuery()->getResult();
     }
 
-    public function findOneBySomeField($value): ?Sortie
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
 }
