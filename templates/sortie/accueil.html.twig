@@ -71,7 +71,7 @@
                         <td>{{sortie.participants.count()}} / {{sortie.nbInscriptionMax}}</td>
                         <td>{{sortie.etat}}</td>
                         <td>{{sortie.inscrit}}</td>
-                        <td>{{sortie.organisateur}}</td>
+                        <td><a href="{{path('participant_detail', {'id' : sortie.organisateur.id})}}"{{sortie.organisateur}}</a></td>
 {#                        <td>{{sortie.actions}}</td>#}
                     </tr>
                 {% endfor %}
@@ -80,5 +80,6 @@
     </div><br>
 
     <a href="{{path('sortie_creerSortie')}}"><button type="button" name="creer" onclick="location.href='creerSortie.html.twig'">Créer une sortie</button></a>
+
 
 {% endblock %}

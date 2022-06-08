@@ -10,6 +10,7 @@ use App\Form\Model\Search;
 use App\Form\SortieFormType;
 use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
+use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,10 +21,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/accueil', name: 'accueil')]
-    public function accueil(SortieRepository $sortieRepository,EtatRepository $etatRepository, Request $request): Response
+    public function accueil(SortieRepository $sortieRepository,EtatRepository $etatRepository, Request $request, ParticipantRepository $participantRepository): Response
     {
         $search = new Search();
         $user = $this->getUser();
+        $participants = $participantRepository->findAll();
 
         $sortieForm = $this->createForm(ListSortiesType::class, $search);
         $sortieForm->handleRequest($request);
@@ -45,6 +47,7 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/accueil.html.twig', [
             'sortieList' => $sortieList,
+            'participants' => $participants,
             'sortieForm' => $sortieForm->createView()
         ]);
 
@@ -100,7 +103,7 @@ class SortieController extends AbstractController
     }
 
 
-    #[Route('/display{id}', name: 'displaySortie')]
+    #[Route('/display/{id}', name: 'displaySortie')]
     public function display($id, SortieRepository $sortieRepository): Response
     {
         $sortie = $sortieRepository->find($id);

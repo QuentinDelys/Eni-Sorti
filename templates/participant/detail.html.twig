@@ -13,9 +13,9 @@
         <p>Nom : {{participant.nom}}</p>
         <p>Téléphone : {{participant.telephone}}</p>
         <p>Email : {{participant.email}}</p>
-{#        <p>Campus : {{participant.campus}}</p>#}
+        <p>Campus : {{participant.campus.nom}}</p>
 
-        <a href="{{path('sortie_accueil')}}">Accueil></a>
+        <a href="{{path('sortie_accueil')}}"><button type="button" name="afficherProfil" onclick="location.href='sortie/accueil.html.twig'">Retour</button></a>
     </div>
 
 
