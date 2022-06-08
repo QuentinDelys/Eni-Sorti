@@ -120,7 +120,7 @@ label{
     min-width: 10px;
     max-width: 50px;
 
-}
-.item {
-    flex: 2 1 auto;
-}
+/*}*/
+/*.item {*/
+/*    flex: 2 1 auto;*/
+/*}*/
