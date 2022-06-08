@@ -2,22 +2,28 @@
 * Styles Globals
 ************************************************************/
 body{
-    margin:0;
-    background-color: #5eb5e0;
+    background: rgb(225,227,240);
+    background: radial-gradient(circle, rgba(225,227,240,1) 0%, rgba(255,191,87,0.08727240896358546) 100%);
+
+
     /*background: linear-gradient(#0025,#132135);*/
     /*background-attachment:fixed ;*/
     /*background-position: center center;*/
     /*background-size: cover ;*/
 
-    font-family: 'Hachi Maru Pop', cursive;
-    text-align: center;
+    font-family: 'Hachi Maru Pop', "Times New Roman", cursive;
+    text-align: left;
 }
 
-.container{
-    min-width: 360px;
-    max-width: 1000px;
-    margin: auto;
-    padding: 10px 20px;
+/*.container{*/
+/*    min-width: 360px;*/
+/*    max-width: 1000px;*/
+/*    margin: auto;*/
+/*    padding: 10px 20px;*/
+/*}*/
+
+.header.div{
+    align-items: center;
 }
 
 a {
@@ -41,12 +47,16 @@ img{
 /*    min-height: 100vh;*/
 /*}*/
 /***********************************************************
-* Header
-************************************************************/
-/*header*/
-/*{*/
-/*    background-color: tomato;*/
-/*}*/
+**********
+ */
+header {
+display: flex;
+    justify-content: space-between;
+    background-color: rgba(192,192, 0.2);
+    width: 100%;
+}
+
+
 .site-title{
     display: flex;
     text-align: center;
@@ -59,13 +69,9 @@ img{
     margin-right: 5px;
 }
 
-#liens{
-    display: flex;
-    justify-content: flex-end;
-}
 
 nav ul{
-    margin: 5px 0;
+    /*margin: 5px 0;*/
     display: flex;
     list-style: none;
     padding-left: 0;
@@ -74,10 +80,13 @@ nav ul{
 
 nav a{
     display: block;
-    padding: 5px 8px;
-    margin-right: 10px;
+    /*padding: 5px 8px;*/
+    /*margin-right: 10px;*/
 }
-
+/*#titleEni{*/
+/*    align-items: center;*/
+/*    display: flex;*/
+/*}*/
 
 /***********************************************************
 * Main
@@ -89,9 +98,9 @@ nav a{
 /*    min-height: 700px;*/
 /*}*/
 
-h1{
-    margin:0;
-}
+/*h1{*/
+/*    margin:0;*/
+/*}*/
 
 /***********************************************************
 * Footer
@@ -116,11 +125,23 @@ label{
     display: inline;
     justify-content: flex-start;
 }
-.botton{
+.botton {
     min-width: 10px;
     max-width: 50px;
-
+}
 /*}*/
 /*.item {*/
 /*    flex: 2 1 auto;*/
 /*}*/
+
+nav{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+table{
+width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}

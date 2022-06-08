@@ -9,3 +9,12 @@
     size: 50px;
 
 }
+
+div.container{
+
+    padding-bottom: 10%;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 10%;
+    text-align: left;
+}
