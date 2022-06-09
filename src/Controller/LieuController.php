@@ -21,6 +21,8 @@ class LieuController extends AbstractController
     #[Route('/villes', name: 'villes')]
     public function Villes(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         return $this->render('lieu/villes.html.twig', [
             'controller_name' => 'LieuController',
         ]);
@@ -29,6 +31,8 @@ class LieuController extends AbstractController
     #[Route('/campus', name: 'campus')]
     public function Campus(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         return $this->render('lieu/campus.html.twig', [
             'controller_name' => 'LieuController',
         ]);

@@ -24,11 +24,11 @@ table {
     flex-direction: row
 }
 #infos{
-    font-size: x-large;
+    font-size: large;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    size: 50px;
+
 
 }
 
@@ -43,15 +43,15 @@ table {
     display: flex;
     justify-content: flex-start;
 }
-#accueilChamps{
-    font-size: large;
-    flex-direction: column;
-    align-items: flex-start;
-    padding-left: 0;
-}
+/*#accueilChamps{*/
+/*    font-size: large;*/
+/*    flex-direction: column;*/
+/*    align-items: flex-start;*/
+/*    padding-left: 0;*/
+/*}*/
 #rechercher{
     padding: 30px;
-    box-shadow: 5px 5px 5px black;
+    /*box-shadow: 5px 5px 5px black;*/
 }
 
 /**{*/
@@ -66,4 +66,13 @@ nav a {
     display: block;
     padding: 5px 8px;
     margin-right: 10px;
+}
+/*#entete{*/
+/*    display: flex;*/
+/*    justify-content: flex-end;*/
+/*}*/
+
+#libelles{
+    display: flex;
+    justify-content: space-between;
 }

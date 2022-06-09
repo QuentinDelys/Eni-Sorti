@@ -21,6 +21,8 @@ class ParticipantController extends AbstractController
     #[Route('/detail/{id}', name: 'detail')]
     public function detailProfil($id, ParticipantRepository $participantRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $participant = $participantRepository->find($id);
         return $this->render('participant/detail.html.twig', [
             'id' => $id,
@@ -32,6 +34,8 @@ class ParticipantController extends AbstractController
     #[Route('/edit', name: 'edit')]
     public function editProfil(ParticipantRepository $participantRepository, Request $request, UserPasswordHasherInterface $hasher): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $participant = $participantRepository->find($this->getUser());
 
         $participantForm = $this->createForm(ParticipantType::class, $participant);

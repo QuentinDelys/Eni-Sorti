@@ -8,9 +8,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
+
     #[Route('/mentionLegal', name: 'mentionLegal')]
     public function index(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         return $this->render('main/mention-legal.html.twig');
     }
 }

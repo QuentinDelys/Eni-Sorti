@@ -23,6 +23,9 @@ class SortieController extends AbstractController
     #[Route('/accueil', name: 'accueil')]
     public function accueil(SortieRepository $sortieRepository,EtatRepository $etatRepository, Request $request, ParticipantRepository $participantRepository): Response
     {
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $search = new Search();
         $user = $this->getUser();
         $participants = $participantRepository->findAll();
@@ -56,6 +59,8 @@ class SortieController extends AbstractController
     #[Route('/creerSortie', name: 'creerSortie')]
     public function add(SortieRepository $repo, Request $request, EtatRepository $etatRepo, CampusRepository $campusRepo): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $sortie = new Sortie();
 
         $sortieForm = $this->createForm(SortieFormType::class, $sortie);
@@ -106,6 +111,8 @@ class SortieController extends AbstractController
     #[Route('/display/{id}', name: 'displaySortie')]
     public function display($id, SortieRepository $sortieRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $sortie = $sortieRepository->find($id);
 
         return $this->render('sortie/afficher.html.twig', [
@@ -117,6 +124,8 @@ class SortieController extends AbstractController
     #[Route('/modifierSortie/{id}', name: 'modifierSortie')]
     public function update(int $id, SortieRepository $repoSortie, EtatRepository $etatRepo, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $sortie = $repoSortie->find($id);
         $SortieForm = $this->createForm(SortieFormType::class, $sortie);
         $SortieForm->handleRequest($request);
@@ -167,6 +176,8 @@ class SortieController extends AbstractController
     #[Route('/supprimerSortie/{id}', name: 'supprimerSortie')]
     public function remove($id, SortieRepository $repo): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $sortie = $repo->find($id);
         $repo->remove($sortie, true);
 

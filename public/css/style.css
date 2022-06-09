@@ -52,6 +52,7 @@ img{
 header {
 display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: rgba(192,192, 0.2);
     width: 100%;
 }
