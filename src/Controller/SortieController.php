@@ -9,6 +9,7 @@ use App\Form\Model\Search;
 use App\Form\SortieFormType;
 use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
+use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,7 +42,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/creerSortie', name: 'creerSortie')]
-    public function add(SortieRepository $repo, Request $request, EtatRepository $etatRepo, CampusRepository $campusRepo): Response
+    public function add(SortieRepository $repo, Request $request, EtatRepository $etatRepo): Response
     {
         $sortie = new Sortie();
 
@@ -160,5 +161,43 @@ class SortieController extends AbstractController
         $this->addFlash("success", "sortie supprimée avec succès !");
         return $this->redirectToRoute("sortie_accueil");
     }
+
+//    #[Route('/publier', 'publier')]
+//    public function publier(SortieRepository $sortieRepository, EtatRepository $etatRepository){
+//
+//        $sortie = new Sortie();
+//        $user = $this->getUser();
+//
+//        $sortie->setOrganisateur($user);
+//        $sortie->setEtat($etatRepository->findOneBy(array('libelle' => 'Ouverte')));
+//        $sortie->setCampus($user->getCampus());
+//
+//        $sortieRepository->add($sortie, true);
+//        $this->addFlash("success", "sortie ajoutée avec succès !");
+//        return $this->redirectToRoute("sortie_accueil");
+//        }
+//
+//
+//    #[Route('/inscription', 'inscription')]
+//    public function inscrire($id, SortieRepository $sortieRepository) : Response
+//    {
+//        $user = $this->getUser();
+//        $sortieRepository->find($user);
+//
+//
+//
+//        $this->addFlash("success", "Participant ajouté à la liste des participants !");
+//        return $this->redirectToRoute("sortie_accueil");
+//    }
+//
+//    #[Route('/desister', 'desister')]
+//    public function desistement($id, ParticipantRepository $participantRepository) : Response
+//    {
+//        $participant = $participantRepository->find($id);
+//        $participantRepository->remove($participant, true);
+//
+//        $this->addFlash("success", "Participant retiré de la liste des participants !");
+//        return $this->redirectToRoute("sortie_accueil");
+//    }
 
 }

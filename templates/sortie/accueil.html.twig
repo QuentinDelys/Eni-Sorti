@@ -78,34 +78,30 @@
 {#                            {% for participant in participants %}#}
 {#                                {% if (participant == sortie.organisateur) %}#}
 {#                            {% endfor %}#}
-
                         <td>
                         {% if (sortie.etat.libelle != 'Créée')%}
                             <button onclick="location.href = '{{path('sortie_displaySortie', {'id' : sortie.id}) }}'" id="displaySortie">Afficher</button>
                         {% endif %}
 
-                        {% if (sortie.etat.libelle = 'Créée') and (app.user = sortie.organisateur)%}
+                        {% if (sortie.etat.libelle == 'Créée') and (app.user == sortie.organisateur)%}
                             <button onclick="location.href = '{{path('sortie_modifierSortie', {'id' : sortie.id}) }}'" id="modifierSortie">Modifier</button>
                             <button onclick="location.href = '{{path('sortie_accueil')}}'" id="publierSortie">Publier</button>
 {# faire appel à la fonction publier sortie qui sera indépendante, modif à faire cf notes, {{path('sortie_publierSortie')}} #}
                         {% endif %}
 
-                        {% if (sortie.etat.libelle = 'Ouverte') and (app.user not in sortie.participants) and (sortie.participants < sortie.nbInscriptionMax)%}
+                        {% if (sortie.etat.libelle == 'Ouverte') and (app.user not in sortie.participants) and (sortie.participants|length < sortie.nbInscriptionMax)%}
                             <button onclick="location.href = '{{path('sortie_accueil')}}'" id="inscrire" >S'inscrire</button>
 {# voir pour rentrer le participant dans la liste des participants de la sortie + ajouter 1 au compteur des inscrits de la sortie + ajouter une sortie à la liste #}
                         {% endif %}
 
-                        {% if (sortie.etat.libelle = 'Ouverte') and (app.user in sortie.participants)%}
-                            <button onclick="location.href = '{{path('sortie_accueil')}}'" id="désister">Se désister</button>
+                        {% if (sortie.etat.libelle == 'Ouverte') or (sortie.etat.libelle == 'Fermée') and (app.user in sortie.participants) and (app.user != sortie.organisateur) %}
+                            <button onclick="location.href = '{{path('sortie_accueil')}}'" id="desister">Se désister</button>
 {# voir pour sortir le participant de la liste des participants de la sortie + enlever 1 au compteur des inscrits de la sortie et retirer la sortie de la liste #}
-
-                        {% if (sortie.etat.libelle = 'Ouverte') and (app.user is sortie.organisateur)%}
+                        {% endif %}
+                        {% if (sortie.etat.libelle == 'Ouverte') and (app.user == sortie.organisateur)%}
                             <button onclick="location.href = '{{path('sortie_accueil')}}'" id="annuler">Annuler</button>
 {# voir pour setter l'état de la sortie à Annulée avec le annuler #}
-
-                        {% if (sortie.etat.libelle = 'Fermée') and (app.user in sortie.participants) and (app.user != sortie.organisateur)%}
-                            <button onclick="location.href = '{{path('sortie_accueil')}}'" id="désister">Se désister</button>
-{# voir pour "fusionner" avec deux lignes au dessus ^^ #}
+                        {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
