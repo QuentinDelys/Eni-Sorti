@@ -2,15 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Campus;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\ListSortiesType;
 use App\Form\Model\Search;
 use App\Form\SortieFormType;
-use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
-use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,43 +18,32 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/accueil', name: 'accueil')]
-    public function accueil(SortieRepository $sortieRepository,EtatRepository $etatRepository, Request $request, ParticipantRepository $participantRepository): Response
+    public function accueil(SortieRepository $sortieRepository,EtatRepository $etatRepository, Request $request): Response
     {
 
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $search = new Search();
         $user = $this->getUser();
-        $participants = $participantRepository->findAll();
 
         $sortieForm = $this->createForm(ListSortiesType::class, $search);
         $sortieForm->handleRequest($request);
 
         $sortieList = $sortieRepository->filtre($search, $user, $etatRepository);
 
-//        $boutonCreer = $this.get ...
-//        $boutonCreer = $this->createForm();
-//        $boutonCreer->handleRequest($request);
-
-
         if($sortieForm->isSubmitted() && $sortieForm->isValid()){
             $this->addFlash("success", "Recherche lancée !");
         }
 
-//        if ($boutonCreer->isSubmitted() && $boutonCreer->isValid()) {
-//            return $this->redirectToRoute("sortie_creerSortie");
-//        }
-
         return $this->render('sortie/accueil.html.twig', [
             'sortieList' => $sortieList,
-            'participants' => $participants,
             'sortieForm' => $sortieForm->createView()
         ]);
 
     }
 
     #[Route('/creerSortie', name: 'creerSortie')]
-    public function add(SortieRepository $repo, Request $request, EtatRepository $etatRepo, CampusRepository $campusRepo): Response
+    public function add(SortieRepository $repo, Request $request, EtatRepository $etatRepo): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
@@ -182,6 +168,48 @@ class SortieController extends AbstractController
         $repo->remove($sortie, true);
 
         $this->addFlash("success", "sortie supprimée avec succès !");
+        return $this->redirectToRoute("sortie_accueil");
+    }
+
+    #[Route('/publier', name: 'publier')]
+    public function publier(SortieRepository $sortieRepository, EtatRepository $etatRepository){
+
+        $sortie = new Sortie();
+        $user = $this->getUser();
+
+        $sortie->setOrganisateur($user);
+        $sortie->setEtat($etatRepository->findOneBy(array('libelle' => 'Ouverte')));
+        $sortie->setCampus($user->getCampus());
+
+        $sortieRepository->add($sortie, true);
+        $this->addFlash("success", "sortie ajoutée avec succès !");
+        return $this->redirectToRoute("sortie_accueil");
+        }
+
+
+    #[Route('/inscription/{id}', name: 'inscription')]
+    public function inscrire($id, SortieRepository $sortieRepository) : Response
+    {
+        $user = $this->getUser();
+
+        $sortie = $sortieRepository->find($id);
+        $sortie->getParticipants()->add($user);
+        $sortieRepository->add($sortie, true);
+
+        $this->addFlash("success", "Participant ajouté à la liste des participants !");
+        return $this->redirectToRoute("sortie_accueil");
+    }
+
+    #[Route('/desister/{id}', name: 'desister')]
+    public function desistement($id, SortieRepository $sortieRepository) : Response
+    {
+        $user = $this->getUser();
+
+        $sortie = $sortieRepository->find($id);
+        $sortie->getParticipants()->remove($user);
+        $sortieRepository->add($sortie, true);
+
+        $this->addFlash("success", "Participant supprimé de la liste des participants !");
         return $this->redirectToRoute("sortie_accueil");
     }
 
